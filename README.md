@@ -13,6 +13,12 @@ This project implements a decision-making system to determine whether to launch 
 
 ---
 
+## **Our Way Of Thinking** 
+
+During this project, the team progressed through stages to establish an effective way of working. Initially, principles and constraints were defined, focusing on task allocation and collaboration. A foundation was built by integrating key practices such as modular design, version control, and task tracking. This framework was then adopted by the team, becoming fully in place as all members consistently followed it. Over time, the workflow proved effective, enabling seamless integration, robust testing, and timely delivery. While this way of working is still active, it may evolve or be retired in future projects based on lessons learned
+
+---
+
 ## **Getting Started**
 
 ### **Prerequisites**
@@ -65,8 +71,3 @@ Execute unit tests:
    ├── requirements.txt           # Python dependencies
    └── main.py       
 
----
-
-## **Our Way Of Thinking** 
-
-During this project, the team progressed through stages to establish an effective way of working. Initially, principles and constraints were defined, focusing on task allocation and collaboration. A foundation was built by integrating key practices such as modular design, version control, and task tracking. This framework was then adopted by the team, becoming fully in place as all members consistently followed it. Over time, the workflow proved effective, enabling seamless integration, robust testing, and timely delivery. While this way of working is still active, it may evolve or be retired in future projects based on lessons learned
