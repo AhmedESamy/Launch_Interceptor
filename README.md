@@ -65,6 +65,7 @@ Execute unit tests:
    ├── requirements.txt           # Python dependencies
    └── main.py       
 
+---
 
 ## **Our Way Of Thinking** 
 
