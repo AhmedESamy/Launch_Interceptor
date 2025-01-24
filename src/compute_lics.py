@@ -15,6 +15,7 @@ def compute_lics(NUMPOINTS, POINTS, PARAMETERS):
     # Placeholder: Implement logic for each LIC (0-14)
     # Example:
     # CMV[0] = lic_0(NUMPOINTS, POINTS, PARAMETERS)
+    CMV[5] = lic_5(NUMPOINTS, POINTS)
 
     return CMV
 
@@ -34,3 +35,10 @@ def lic_1(NUMPOINTS, POINTS, PARAMETERS):
     pass  # To be implemented
 
 # Add similar placeholder functions for LIC 2 through LIC 14
+
+def lic_5(NUMPOINTS, POINTS):
+    """Check if there are two consecutive points where x coordinate decreases"""
+    for i in range(NUMPOINTS - 1):
+        if POINTS[i + 1][0] < POINTS[i][0]:  # if x coordinate decreases
+            return True
+    return False
