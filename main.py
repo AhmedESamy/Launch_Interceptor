@@ -1,28 +1,37 @@
 import json
 from src.decide import decide
 
-if __name__ == "__main__":
-    # Load input data from JSON file
-    with open("data/input.json", "r") as f:
+def main():
+    # Load the JSON file containing multiple examples
+    with open("data/examples.json", "r") as f:
         data = json.load(f)
-
-    # Extract inputs from the JSON
-    num_points = data["NUMPOINTS"]
-    points = data["POINTS"]
-    parameters = data["PARAMETERS"]
-    lcm = data["LCM"]
-    puv = data["PUV"]
-
-    # Call the DECIDE function with intermediate results
-    launch_decision, intermediate_results = decide(
-        num_points, points, parameters, lcm, puv, return_intermediate=True
-    )
     
-    # Print the final decision
-    print(f"Launch Decision: {launch_decision}")
+    examples = data.get("examples", [])
     
-    # Optionally, print intermediate results for debugging or logging
-    print("\nIntermediate Results:")
-    print(f"Conditions Met Vector (CMV): {intermediate_results['CMV']}")
-    print(f"Preliminary Unlocking Matrix (PUM): {intermediate_results['PUM']}")
-    print(f"Final Unlocking Vector (FUV): {intermediate_results['FUV']}")
+    # Iterate through each example and run the `decide` function
+    for example in examples:
+        print(f"Running example: {example['name']}")
+        
+        # Extract inputs from the current example
+        num_points = example["NUMPOINTS"]
+        points = example["POINTS"]
+        parameters = example["PARAMETERS"]
+        lcm = example["LCM"]
+        puv = example["PUV"]
+        
+        # Call the DECIDE function
+        launch_decision, intermediate_results = decide(num_points, points, parameters, lcm, puv)
+        
+        # Print the results
+        print(f"Expected Output: {example['EXPECTED_OUTPUT']}")
+        print(f"Actual Launch Decision: {launch_decision}")
+        print(f"Intermediate Results: {intermediate_results}\n")
+        
+        # Validate the result
+        if launch_decision == example["EXPECTED_OUTPUT"]:
+            print("Test Passed!")
+        else:
+            print("Test Failed!")
+
+if __name__ == "__main__":
+    main()
