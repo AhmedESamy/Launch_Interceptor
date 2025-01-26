@@ -61,7 +61,23 @@ def lic_1(NUMPOINTS, POINTS, PARAMETERS):
         
     return False
 
-# Add similar placeholder functions for LIC 2 through LIC 14
+def lic_2(NUMPOINTS, POINTS, PARAMETERS):
+    """
+    LIC 2: Returns True if there exists at least one set of three consecutive data points which form an angle such that angle < (PI - EPSILON) OR angle > (PI + EPSILON).
+    """
+    if NUMPOINTS < 3:
+        return False
+    
+    for i in range(NUMPOINTS-2):
+        angle = calculate_angle(POINTS[i],POINTS[i+1],POINTS[i+2])
+
+        if triangle_area(POINTS[i],POINTS[i+1],POINTS[i+2]) == 0:
+            continue
+
+        if (angle < (math.pi - PARAMETERS['EPSILON']) or angle > (math.pi + PARAMETERS['EPSILON'])):
+            return True
+        
+        return False
 
 def lic_5(NUMPOINTS, POINTS):
     """Check if there are two consecutive points where x coordinate decreases"""
