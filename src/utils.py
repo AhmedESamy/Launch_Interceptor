@@ -56,4 +56,9 @@ def triangle_area(point1, point2, point3):
     """
     Calculate the area of a triangle formed by three points.
     """
-    pass
+    # Heron's formula
+    a = distance(point1, point2)
+    b = distance(point1, point3)
+    c = distance(point2, point3)
+    s = (a + b + c) / 2
+    return math.sqrt(s * (s - a) * (s - b) * (s - c))

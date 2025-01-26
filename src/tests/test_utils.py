@@ -30,5 +30,14 @@ def test_calculate_angle_incorrect():
     assert math.isnan(utils.calculate_angle([1, 2], [1, 2], [0, 0]))
     assert math.isnan(utils.calculate_angle([0, 0], [1, 2], [1, 2]))
 
-def test_triangle_area():
-    pass
+@pytest.mark.parametrize("point1, point2, point3, expected_area", [
+    ([8, 10], [12, 14], [2, 12], 16), # Triangle in first quadrant
+    ([20, 80], [50, -10], [-40, -40], 4500), # Triangle over all quadrants
+    ([16, -2], [16, 20], [-10, -2], 286), # Right triangle
+    ([10, 10], [20, 20], [-10, -10], 0), # A line
+    ([13, 13], [13, 13], [13, 13], 0), # point1=point2=point3
+])
+
+def test_triangle_area(point1, point2, point3, expected_area):
+    assert math.isclose(
+        utils.triangle_area(point1, point2, point3), expected_area, rel_tol = 1e-9)
