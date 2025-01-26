@@ -34,7 +34,16 @@ def lic_0(NUMPOINTS, POINTS, PARAMETERS):
     LIC 0: Check if there exists at least one set of two consecutive data points
     that are a distance greater than LENGTH1 apart.
     """
-    pass  # To be implemented
+    if NUMPOINTS < 2:
+        return False
+    
+    for i in range(NUMPOINTS-1):
+        dist = distance(POINTS[i],POINTS[i+1])
+
+        if dist > PARAMETERS['LENGTH1']:
+            return True
+        
+    return False
 
 def lic_1(NUMPOINTS, POINTS, PARAMETERS):
     """
