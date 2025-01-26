@@ -1,5 +1,9 @@
 import math
+<<<<<<< HEAD
 from utils import *
+=======
+import src.utils as utils
+>>>>>>> 32e918a (feat: Added a function to check LIC 10)
 
 def compute_lics(NUMPOINTS, POINTS, PARAMETERS):
     """
@@ -213,4 +217,23 @@ def lic_9(NUMPOINTS, POINTS, C_PTS, D_PTS, EPSILON):
                               POINTS[i + C_PTS + D_PTS + 2])
         if not math.isnan(angle) and (angle < math.pi - EPSILON or angle > math.pi + EPSILON):
             return True
+<<<<<<< HEAD
+=======
+    return False
+
+def lic_10(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1):
+    """ 
+    Check if there exists a set of three data points separated by exactly E_PTS and F_PTS
+    consecutive points, that are the vertices of a triangle with area greater than AREA1.
+    This condition does not hold for NUMPOINTS < 5.
+    """
+    if NUMPOINTS < 5:
+        return False
+    
+    for i in range(NUMPOINTS - E_PTS - F_PTS - 2):
+        if utils.triangle_area(POINTS[i], 
+                               POINTS[i + E_PTS + 1],
+                               POINTS[i + E_PTS + F_PTS + 2]) > AREA1:
+            return True
+>>>>>>> 32e918a (feat: Added a function to check LIC 10)
     return False
