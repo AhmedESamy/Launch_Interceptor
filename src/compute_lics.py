@@ -50,7 +50,16 @@ def lic_1(NUMPOINTS, POINTS, PARAMETERS):
     LIC 1: Check if three consecutive data points cannot all be contained within
     or on a circle of radius RADIUS1.
     """
-    pass  # To be implemented
+    if NUMPOINTS < 3:
+        return False
+    
+    for i in range(NUMPOINTS-2):
+        if (max(distance(POINTS[i],POINTS[i+1]),
+                distance(POINTS[i],POINTS[i+2]),
+                distance(POINTS[i+1],POINTS[i+2])) > PARAMETERS['RADIUS1']):
+            return True
+        
+    return False
 
 # Add similar placeholder functions for LIC 2 through LIC 14
 
