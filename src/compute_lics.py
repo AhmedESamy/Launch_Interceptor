@@ -78,6 +78,22 @@ def lic_2(NUMPOINTS, POINTS, PARAMETERS):
             return True
         
         return False
+    
+def lic_3(NUMPOINTS, POINTS, PARAMETERS):
+    """
+    There exists at least one set of three consecutive consecutive elements in pts that are the vertices of a triangle with area greater than AREA1 > 0.
+    """
+
+    if NUMPOINTS < 3:
+        return False
+    
+    for i in range(NUMPOINTS-2):
+        area = triangle_area(POINTS[i],POINTS[i+1],POINTS[i+2])
+
+        if area > PARAMETERS['AREA1']:
+            return True
+        
+    return False
 
 def lic_5(NUMPOINTS, POINTS):
     """Check if there are two consecutive points where x coordinate decreases"""
