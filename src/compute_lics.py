@@ -1,3 +1,6 @@
+import math
+from utils import *
+
 def compute_lics(NUMPOINTS, POINTS, PARAMETERS):
     """
     Compute the Conditions Met Vector (CMV) for the given points and parameters.
