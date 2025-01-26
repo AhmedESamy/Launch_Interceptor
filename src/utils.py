@@ -1,3 +1,5 @@
+import math
+
 def compute_pum(CMV, LCM):
     """
     Compute the Preliminary Unlocking Matrix (PUM) based on CMV and LCM.
@@ -31,7 +33,8 @@ def distance(point1, point2):
     """
     Calculate the Euclidean distance between two points.
     """
-    pass
+    return math.sqrt(   (point2[0] - point1[0]) ** 2 + 
+                        (point2[1] - point1[1]) ** 2)
 
 def calculate_angle(point1, point2, point3):
     """
