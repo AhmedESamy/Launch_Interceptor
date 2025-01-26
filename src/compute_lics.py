@@ -95,6 +95,38 @@ def lic_3(NUMPOINTS, POINTS, PARAMETERS):
         
     return False
 
+def lic_4(NUMPOINTS, POINTS, PARAMETERS):
+    """
+    Return True if there exists at least one set of 2 <= Q_PTS consecutive elements in pts that lie in more than QUADS quadrants.    
+    """
+    Q_PTS = PARAMETERS['Q_PTS']
+    QUADS = PARAMETERS['QUADS']
+
+    if NUMPOINTS < Q_PTS:
+        return False
+    
+    for i in range(NUMPOINTS-Q_PTS+1):
+        q_consec = POINTS[i:i+Q_PTS]
+        quad_count = [0,0,0,0] # Counters for Quadrants I, II, III, VI respectively
+        for p in q_consec:
+            if p[1] >= 0: # Quadrant I or II
+                if p[0] >= 0:
+                    quad_idx = 0 # Quadrant I
+                else: 
+                    quad_idx = 0 # Quadrant II
+            else: # Quadrant III or IV
+                if p[0] <= 0:
+                    quad_idx = 2 # Quadrant III
+                else: 
+                    quad_idx = 3 # Quadrant VI 
+            
+            quad_count[quad_idx] += 1
+
+        if (4 - quad_count.count(0)) > QUADS:
+            return True
+        
+        return False
+
 def lic_5(NUMPOINTS, POINTS):
     """Check if there are two consecutive points where x coordinate decreases"""
     for i in range(NUMPOINTS - 1):
