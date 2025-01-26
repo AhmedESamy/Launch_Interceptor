@@ -12,9 +12,23 @@ import src.utils as utils
 def test_distance(point1, point2, expected_distance):
     assert math.isclose(
             utils.distance(point1, point2), expected_distance, rel_tol = 1e-9)
-    
-    
-def test_calculate_angle():
-    pass
+
+@pytest.mark.parametrize("point1, point2, point3, expected_angle", [
+    ([4, 14], [18, 14], [18, 2], math.radians(90)), # Right triangle
+    ([-8,8], [14, 10], [26, -8], math.pi - 1.073453610448074), # All points in different quadrants
+    ([-4, 6], [-14, 0], [-4, 10], 0.2449786631268), # Small angle
+    ([1, 0], [2, 0], [3, 0], math.pi), # A line
+    ([7, 0], [1, 2], [7, 0], 0), # point1 == point3
+])
+
+def test_calculate_angle(point1, point2, point3, expected_angle):
+    assert math.isclose(
+        utils.calculate_angle(point1, point2, point3), expected_angle, rel_tol = 1e-6)
+
+def test_calculate_angle_incorrect():
+    # Tests that break point1 != point2 or point2 != point3
+    assert math.isnan(utils.calculate_angle([1, 2], [1, 2], [0, 0]))
+    assert math.isnan(utils.calculate_angle([0, 0], [1, 2], [1, 2]))
+
 def test_triangle_area():
     pass

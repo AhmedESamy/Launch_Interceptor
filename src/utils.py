@@ -38,9 +38,19 @@ def distance(point1, point2):
 
 def calculate_angle(point1, point2, point3):
     """
-    Calculate the angle formed by three points.
+    Calculate the angle formed by three points,
+    with the vertex at `point2`. The angle is
+    returned in radians.
     """
-    pass
+    if point1 == point2 or point2 == point3:
+        return math.nan
+    p12 = distance(point1, point2)
+    p13 = distance(point1, point3)
+    p23 = distance(point2, point3)
+    
+    # Law of Cosines
+    return math.acos(   (p12*p12 + p23*p23 - p13*p13) / 
+                        (2 * p12 * p23))
 
 def triangle_area(point1, point2, point3):
     """
