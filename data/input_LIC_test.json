@@ -289,6 +289,316 @@
           "AREA2": 1.0
         },
         "EXPECTED_OUTPUT": "False"
+      },
+      {
+        "name": "LIC 5.1 Test - when X decreases from 2 to 1",
+        "NUMPOINTS": 3,
+        "POINTS": [
+          [2, 0],
+          [1, 0],  
+          [3, 0]
+        ],
+        "PARAMETERS": {
+          "LENGTH1": 2.0,
+          "RADIUS1": 1.5,
+          "EPSILON": 0.1,
+          "AREA1": 3.0,
+          "Q_PTS": 3,
+          "QUADS": 2,
+          "N_PTS": 4,
+          "DIST": 1.5,
+          "K_PTS": 2,
+          "A_PTS": 1,
+          "B_PTS": 1,
+          "C_PTS": 1,
+          "D_PTS": 1,
+          "E_PTS": 1,
+          "F_PTS": 1,
+          "LENGTH2": 0.5,
+          "RADIUS2": 2.0,
+          "AREA2": 1.0
+        },
+        "EXPECTED_OUTPUT": "True"
+      },
+      {
+        "name": "LIC 5.2 Test - When there is no decrease",
+        "NUMPOINTS": 3,
+        "POINTS": [
+          [1, 0],
+          [2, 0],  
+          [3, 0]
+        ],
+        "PARAMETERS": {
+          "LENGTH1": 2.0,
+          "RADIUS1": 1.5,
+          "EPSILON": 0.1,
+          "AREA1": 3.0,
+          "Q_PTS": 3,
+          "QUADS": 2,
+          "N_PTS": 4,
+          "DIST": 1.5,
+          "K_PTS": 2,
+          "A_PTS": 1,
+          "B_PTS": 1,
+          "C_PTS": 1,
+          "D_PTS": 1,
+          "E_PTS": 1,
+          "F_PTS": 1,
+          "LENGTH2": 0.5,
+          "RADIUS2": 2.0,
+          "AREA2": 1.0
+        },
+        "EXPECTED_OUTPUT": "False"
+      },
+      {
+        "name": "LIC 6.1 Test - when point (1,2) is > DIST of 1.0 from line",
+        "NUMPOINTS": 3,
+        "POINTS": [
+          [0, 0],
+          [1, 2],
+          [2, 0]
+        ],
+        "PARAMETERS": {
+          "LENGTH1": 2.0,
+          "RADIUS1": 1.5,
+          "EPSILON": 0.1,
+          "AREA1": 3.0,
+          "Q_PTS": 3,
+          "QUADS": 2,
+          "N_PTS": 3,
+          "DIST": 1.0,
+          "K_PTS": 2,
+          "A_PTS": 1,
+          "B_PTS": 1,
+          "C_PTS": 1,
+          "D_PTS": 1,
+          "E_PTS": 1,
+          "F_PTS": 1,
+          "LENGTH2": 0.5,
+          "RADIUS2": 2.0,
+          "AREA2": 1.0
+        },
+        "EXPECTED_OUTPUT": "True"
+      },
+      {
+        "name": "LIC 6.2 Test - when point (1,0.5) is < DIST of 1.0 from line",
+        "NUMPOINTS": 3,
+        "POINTS": [
+          [0, 0],
+          [1, 0.5],
+          [2, 0]
+        ],
+        "PARAMETERS": {
+          "LENGTH1": 2.0,
+          "RADIUS1": 1.5,
+          "EPSILON": 0.1,
+          "AREA1": 3.0,
+          "Q_PTS": 3,
+          "QUADS": 2,
+          "N_PTS": 3,
+          "DIST": 1.0,
+          "K_PTS": 2,
+          "A_PTS": 1,
+          "B_PTS": 1,
+          "C_PTS": 1,
+          "D_PTS": 1,
+          "E_PTS": 1,
+          "F_PTS": 1,
+          "LENGTH2": 0.5,
+          "RADIUS2": 2.0,
+          "AREA2": 1.0
+        },
+        "EXPECTED_OUTPUT": "False"
+      },
+      {
+        "name": "LIC 7.1 Test - Distance from [0,0] to [4,4] > length1 of 5",
+        "NUMPOINTS": 4,
+        "POINTS": [
+          [0, 0],
+          [1, 1],
+          [2, 2],
+          [4, 4]
+        ],
+        "PARAMETERS": {
+          "LENGTH1": 5.0,
+          "RADIUS1": 1.5,
+          "EPSILON": 0.1,
+          "AREA1": 3.0,
+          "Q_PTS": 3,
+          "QUADS": 2,
+          "N_PTS": 4,
+          "DIST": 1.5,
+          "K_PTS": 2,
+          "A_PTS": 1,
+          "B_PTS": 1,
+          "C_PTS": 1,
+          "D_PTS": 1,
+          "E_PTS": 1,
+          "F_PTS": 1,
+          "LENGTH2": 0.5,
+          "RADIUS2": 2.0,
+          "AREA2": 1.0
+        },
+        "EXPECTED_OUTPUT": "True"
+      },
+      {
+        "name": "LIC 7.2 Test - Distance from [0,0] to [3,3] < length1 of 5",
+        "NUMPOINTS": 4,
+        "POINTS": [
+          [0, 0],
+          [1, 1],
+          [2, 2],
+          [3, 3]
+        ],
+        "PARAMETERS": {
+          "LENGTH1": 5.0,
+          "RADIUS1": 1.5,
+          "EPSILON": 0.1,
+          "AREA1": 3.0,
+          "Q_PTS": 3,
+          "QUADS": 2,
+          "N_PTS": 4,
+          "DIST": 1.5,
+          "K_PTS": 2,
+          "A_PTS": 1,
+          "B_PTS": 1,
+          "C_PTS": 1,
+          "D_PTS": 1,
+          "E_PTS": 1,
+          "F_PTS": 1,
+          "LENGTH2": 0.5,
+          "RADIUS2": 2.0,
+          "AREA2": 1.0
+        },
+        "EXPECTED_OUTPUT": "False"
+      },
+      {
+        "name": "LIC 8.1 Test - [3,0], [2,2],[4,0] can't fit in circle",
+        "NUMPOINTS": 5,
+        "POINTS": [
+          [0, 0],
+          [1, 1],
+          [3, 0],
+          [2, 2],
+          [4, 0]
+        ],
+        "PARAMETERS": {
+          "LENGTH1": 2.0,
+          "RADIUS1": 1.0,
+          "EPSILON": 0.1,
+          "AREA1": 3.0,
+          "Q_PTS": 3,
+          "QUADS": 2,
+          "N_PTS": 4,
+          "DIST": 1.5,
+          "K_PTS": 2,
+          "A_PTS": 1,
+          "B_PTS": 1,
+          "C_PTS": 1,
+          "D_PTS": 1,
+          "E_PTS": 1,
+          "F_PTS": 1,
+          "LENGTH2": 0.5,
+          "RADIUS2": 2.0,
+          "AREA2": 1.0
+        },
+        "EXPECTED_OUTPUT": "True"
+      },
+      {
+        "name": "LIC 8.2 Test - [0.5,0.5], [1,1],[0,1] can fit in circle",
+        "NUMPOINTS": 5,
+        "POINTS": [
+          [0, 0],
+          [1, 1],
+          [0.5, 0.5],
+          [1, 1],
+          [0, 1]
+        ],
+        "PARAMETERS": {
+          "LENGTH1": 2.0,
+          "RADIUS1": 1.0,
+          "EPSILON": 0.1,
+          "AREA1": 3.0,
+          "Q_PTS": 3,
+          "QUADS": 2,
+          "N_PTS": 4,
+          "DIST": 1.5,
+          "K_PTS": 2,
+          "A_PTS": 1,
+          "B_PTS": 1,
+          "C_PTS": 1,
+          "D_PTS": 1,
+          "E_PTS": 1,
+          "F_PTS": 1,
+          "LENGTH2": 0.5,
+          "RADIUS2": 2.0,
+          "AREA2": 1.0
+        },
+        "EXPECTED_OUTPUT": "False"
+      },
+      {
+        "name": "LIC 9.1 Test - Points form angle < PI-EPSILON",
+        "NUMPOINTS": 5,
+        "POINTS": [
+          [0, 0],
+          [1, 1],
+          [2, 0],
+          [3, 3],
+          [4, 0]
+        ],
+        "PARAMETERS": {
+          "LENGTH1": 2.0,
+          "RADIUS1": 1.5,
+          "EPSILON": 0.1,
+          "AREA1": 3.0,
+          "Q_PTS": 3,
+          "QUADS": 2,
+          "N_PTS": 4,
+          "DIST": 1.5,
+          "K_PTS": 2,
+          "A_PTS": 1,
+          "B_PTS": 1,
+          "C_PTS": 1,
+          "D_PTS": 1,
+          "E_PTS": 1,
+          "F_PTS": 1,
+          "LENGTH2": 0.5,
+          "RADIUS2": 2.0,
+          "AREA2": 1.0
+        },
+        "EXPECTED_OUTPUT": "True"
+      },
+      {
+        "name": "LIC 9.2 Test - Points form angle = PI",
+        "NUMPOINTS": 5,
+        "POINTS": [
+          [0, 0],
+          [1, 1],
+          [2, 0],
+          [3, 1],
+          [4, 0]
+        ],
+        "PARAMETERS": {
+          "LENGTH1": 2.0,
+          "RADIUS1": 1.5,
+          "EPSILON": 0.1,
+          "AREA1": 3.0,
+          "Q_PTS": 3,
+          "QUADS": 2,
+          "N_PTS": 4,
+          "DIST": 1.5,
+          "K_PTS": 2,
+          "A_PTS": 1,
+          "B_PTS": 1,
+          "C_PTS": 1,
+          "D_PTS": 1,
+          "E_PTS": 1,
+          "F_PTS": 1,
+          "LENGTH2": 0.5,
+          "RADIUS2": 2.0,
+          "AREA2": 1.0
+        },
+        "EXPECTED_OUTPUT": "False"
       }
     ]
   }

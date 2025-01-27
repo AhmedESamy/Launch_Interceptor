@@ -90,3 +90,70 @@ def test_lic_4(example_index, expected_result):
     example = examples[example_index]
     result = lic_4(example['NUMPOINTS'], example['POINTS'], example['PARAMETERS'])
     assert result == expected_result
+
+@pytest.mark.parametrize("example_index, expected_result", [
+    (10, True),   # LIC 5.1 - X coordinate decreases
+    (11, False),  # LIC 5.2 - No decrease in X
+])
+def test_lic_5(example_index, expected_result):
+    example = examples[example_index]
+    result = lic_5(example['NUMPOINTS'], example['POINTS'])
+    assert result == (example['EXPECTED_OUTPUT'] == "True")
+
+@pytest.mark.parametrize("example_index, expected_result", [
+    (12, True),   # LIC 6.1 - Point far from line
+    (13, False),  # LIC 6.2 - Point close to line
+])
+def test_lic_6(example_index, expected_result):
+    example = examples[example_index]
+    result = lic_6(
+        example['NUMPOINTS'],
+        example['POINTS'],
+        example['PARAMETERS']['N_PTS'],
+        example['PARAMETERS']['DIST']
+    )
+    assert result == (example['EXPECTED_OUTPUT'] == "True")
+
+@pytest.mark.parametrize("example_index, expected_result", [
+    (14, True),   # LIC 7.1 - Distance > LENGTH1
+    (15, False),  # LIC 7.2 - Distance < LENGTH1
+])
+def test_lic_7(example_index, expected_result):
+    example = examples[example_index]
+    result = lic_7(
+        example['NUMPOINTS'],
+        example['POINTS'],
+        example['PARAMETERS']['K_PTS'],
+        example['PARAMETERS']['LENGTH1']
+    )
+    assert result == (example['EXPECTED_OUTPUT'] == "True")
+
+@pytest.mark.parametrize("example_index, expected_result", [
+    (16, True),   # LIC 8.1 - Points can't fit in circle
+    (17, False),  # LIC 8.2 - Points can fit in circle
+])
+def test_lic_8(example_index, expected_result):
+    example = examples[example_index]
+    result = lic_8(
+        example['NUMPOINTS'],
+        example['POINTS'],
+        example['PARAMETERS']['A_PTS'],
+        example['PARAMETERS']['B_PTS'],
+        example['PARAMETERS']['RADIUS1']
+    )
+    assert result == (example['EXPECTED_OUTPUT'] == "True")
+
+@pytest.mark.parametrize("example_index, expected_result", [
+    (18, True),   # LIC 9.1 - Angle < PI-EPSILON
+    (19, False),  # LIC 9.2 - Angle = PI
+])
+def test_lic_9(example_index, expected_result):
+    example = examples[example_index]
+    result = lic_9(
+        example['NUMPOINTS'],
+        example['POINTS'],
+        example['PARAMETERS']['C_PTS'],
+        example['PARAMETERS']['D_PTS'],
+        example['PARAMETERS']['EPSILON']
+    )
+    assert result == (example['EXPECTED_OUTPUT'] == "True")
