@@ -327,4 +327,29 @@ def lic_13(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1, RADIUS2):
             radius2_condition = True
 
     return radius1_condition and radius2_condition
-        
+
+def lic_14(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, AREA2):
+    """
+    Check if there exists at least two sets of three points, separated by
+    exactly E_PTS and F_PTS consecutive points, that create a triangle with
+    area greater than AREA1 and a triangle with area less than AREA2 respectively.
+    The two sets may contain the same points.
+    """
+    if NUMPOINTS < 5:
+        return False    
+    
+    area1_condition = False
+    area2_condition = False
+    
+    for i in range(NUMPOINTS - E_PTS - F_PTS - 2):
+        if area1_condition and area2_condition:
+            break
+        area = utils.triangle_area(POINTS[i],
+                                   POINTS[i + E_PTS + 1],
+                                   POINTS[i + E_PTS + F_PTS + 2])
+        if area > AREA1:
+            area1_condition = True
+        if area < AREA2:
+            area2_condition = True
+
+    return area1_condition and area2_condition

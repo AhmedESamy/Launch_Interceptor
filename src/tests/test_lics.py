@@ -88,3 +88,23 @@ def test_lic_12(NUMPOINTS, POINTS, K_PTS, LENGTH1, LENGTH2, expected_result):
 
 def test_lic_13(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1, RADIUS2, expected_result):
     assert lics.lic_13(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1, RADIUS2) == expected_result
+    
+
+@pytest.mark.parametrize("NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, AREA2, expected_result", [
+    # First condition satisfied with (4, 9), (8, 14), (8, 9) since area = 10 > 9 (AREA1) 
+    # Second condition satisfied with (11, 12), (10, 11), (11, 11) since area = sqrt(2) < 2 (AREA2)
+    (10, [[4, 9], [0, 0], [8, 14], [0, 0], [8, 9],
+         [11, 12], [0, 0], [10, 11], [0, 0], [11, 11]], 1, 1, 9, 2, True),
+    # Both conditions satisfied with (4, 9), (8, 14), (8, 9) since area = 10 > 9 (AREA1) and < 11 (AREA2)
+    (5, [[4, 9], [0, 0], [8, 14], [0, 0], [8, 9]], 1, 1, 9, 11, True),
+    # Both conditions satisfied with an area of 0 from (4, 8), (8, 8), (12, 8)
+    # since 0 > -1 (AREA1) and 0 < 1 (AREA2)
+    (5, [[4, 8], [0, 0], [8, 8], [0, 0], [12, 8]], 1, 1, -1, 1, True),
+    # Only one condition satisfied with (4, 9), (8, 14), (8, 9) since area = 10 > 9 (AREA1) but > 8 (AREA2)
+    (5, [[4, 9], [0, 0], [8, 14], [0, 0], [8, 9]], 1, 1, 9, 8, False),
+    # No condition satisfied
+    (5, [[4, 9], [0, 0], [8, 14], [0, 0], [8, 9]], 1, 1, 100, 0, False),
+])
+
+def test_lic_14(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, AREA2, expected_result):
+    assert lics.lic_14(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, AREA2) == expected_result
