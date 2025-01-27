@@ -270,3 +270,61 @@ def lic_12(NUMPOINTS, POINTS, K_PTS, LENGTH1, LENGTH2):
         if dist < LENGTH2:
             length2_condition = True
     return length1_condition and length2_condition
+
+def lic_13(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1, RADIUS2):
+    """
+    Check if there exists at least two sets of three points, separated by
+    exactly A_PTS and B_PTS consecutive points, that cannot be contained
+    withing or on a circle of radius RADIUS1 and that can be contained
+    in or on a circle of radius RADIUS2. The two sets may contain the
+    same points.
+    """
+    if NUMPOINTS < 5:
+        return False
+    
+    radius1_condition = False
+    radius2_condition = False
+    for i in range(NUMPOINTS - A_PTS - B_PTS - 2):
+        if radius1_condition and radius2_condition:
+            # Early break, if both conditions are fulfilled
+            # before iterating all points
+            break
+        p1 = POINTS[i]
+        p2 = POINTS[i + A_PTS + 1]
+        p3 = POINTS[i + A_PTS + B_PTS + 2]
+        """ 
+        Sources used:
+        user856, Given a set of 3 2D points, how to find if they lie within 
+        a circle of a given radius?, URL (version: 2017-04-15): 
+        https://math.stackexchange.com/q/2234810
+        
+        joriki (https://math.stackexchange.com/users/6622/joriki), 
+        Is there any way to judge if a triangle is acute or obtuse?, 
+        URL (version: 2012-09-24): https://math.stackexchange.com/q/201640
+        """
+        a = utils.distance(p1, p2)
+        b = utils.distance(p1, p3)
+        c = utils.distance(p2, p3)
+        k = utils.triangle_area(p1, p2, p3)
+        
+        squares = [a*a, b*b, c*c]
+        c2 = max(squares)
+        squares.remove(max(squares))
+        two_shortest_sum = sum(squares)
+        min_radius = math.nan
+        if two_shortest_sum > c2:
+            # a^2 + b^2 > c^2 => Acute triangle
+            # Smallest enclosing circle given by the circumradius
+            min_radius = (a * b * c) / (4 * k)
+        else:
+            # a^2 + b^2 <= c^2 => Right/Obtuse triangle
+            # Smallest enclosing circle given by longest edge
+            # of the triangle, giving the diameter
+            min_radius = max(a, b, c) / 2
+        if min_radius > RADIUS1:
+            radius1_condition = True
+        if min_radius <= RADIUS2:
+            radius2_condition = True
+
+    return radius1_condition and radius2_condition
+        

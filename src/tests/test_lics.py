@@ -66,3 +66,25 @@ def test_lic_11(NUMPOINTS, POINTS, G_PTS, expected_result):
 
 def test_lic_12(NUMPOINTS, POINTS, K_PTS, LENGTH1, LENGTH2, expected_result):
     assert lics.lic_12(NUMPOINTS, POINTS, K_PTS, LENGTH1, LENGTH2) == expected_result
+    
+
+@pytest.mark.parametrize("NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1, RADIUS2, expected_result", [
+    # First condition satisfied with (-3, 3), (5, 5), (5, 7) since r = sqrt(21.25) > 4 (RADIUS1)
+    # Second condition satisfied with (5, 5), (5, 7), (3, 5)  since r = sqrt(1.56) <= 2 (RADIUS2)
+    (7, [[-3, 3], [0, 0], [5, 5], [0, 0], [5, 7],
+         [0, 0], [3, 6]], 1, 1, 1, 3, True),
+    # Both conditions satisfied with (3, 6), (5, 5), (5, 7) since r = sqrt(1.56) > 1 (RADIUS1) 
+    # and sqrt(1.56) <= 3 (RADIUS2)
+    (5, [[3, 6], [0, 0], [5, 5], [0, 0], [5, 7]], 1, 1, 1, 3, True),
+    # Both conditions satisfied with a line (4, 8), (8, 8), (12, 8)
+    # since r = 4 > 2 (RADIUS1) and <= 5 (RADIUS2)
+    (5, [[4, 8], [0, 0], [8, 8], [0, 0], [12, 8]], 1, 1, 2, 5, True),
+    # None of the conditions are satisfied
+    (5, [[3, 6], [0, 0], [5, 5], [0, 0], [5, 7]], 1, 1, 100, 1, False),
+    # Only one condition is satisfied with (3, 6), (5, 5), (5, 7) 
+    # since r = sqrt(1.56) <= 3 (RADIUS2), but RADIUS1 = 3 > sqrt(1.56) 
+    (5, [[3, 6], [0, 0], [5, 5], [0, 0], [5, 7]], 1, 1, 3, 3, False),
+])
+
+def test_lic_13(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1, RADIUS2, expected_result):
+    assert lics.lic_13(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1, RADIUS2) == expected_result
