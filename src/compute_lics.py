@@ -141,18 +141,14 @@ def lic_6(NUMPOINTS, POINTS, N_PTS, DIST):
         
     def point_to_line_distance(point, start, end):
         if start == end:
-            return ((point[0] - start[0])**2 + (point[1] - start[1])**2)**0.5
+            return distance(point, start)
             
         # Calculate perpendicular distance from point to line
-        num = abs((end[1] - start[1])*point[0] #(y₂-y₁)x
-        - (end[0] - start[0])*point[1] # -(x2-x1)y
-        + end[0]*start[1] #x2y1
-        - end[1]*start[0]) #-y2x1
+        area = abs(triangle_area(point, start, end)) * 2
+        base = distance(start, end)
         
-        den = ((end[1] - start[1])**2 #(y2-y1)^2
-        + (end[0] - start[0])**2)**0.5 # +(x2-x1)^2
-        
-        return num/den
+        return area/base if base != 0 else distance(point, start)
+    
     #Sliding window Check: Example N_PTS of 3 and will give [0] to [2], [1] to [3]...[n-3] to [n-2]
     for i in range(NUMPOINTS - N_PTS + 1):
         first = POINTS[i]
@@ -172,8 +168,7 @@ def lic_7(NUMPOINTS, POINTS, K_PTS, LENGTH1):
     for i in range(NUMPOINTS - K_PTS):
         p1 = POINTS[i]
         p2 = POINTS[i + K_PTS]
-        dist = ((p2[0] - p1[0])**2 + (p2[1] - p1[1])**2)**0.5
-        if dist > LENGTH1:
+        if distance(p1, p2) > LENGTH1:
             return True
     return False
 
@@ -184,23 +179,20 @@ def lic_8(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1):
         
     def cant_fit_in_circle(p1, p2, p3, radius):
         # Calculate distances between points
-        a = ((p2[0] - p3[0])**2 + (p2[1] - p3[1])**2)**0.5
-        b = ((p1[0] - p3[0])**2 + (p1[1] - p3[1])**2)**0.5
-        c = ((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)**0.5
+        a = distance(p2, p3)
+        b = distance(p1, p3)
+        c = distance(p1, p2)
         
         # If points form a line, check max distance
-        # (a,b), (m,n) and (x,y) are collinear if (n-b)(x-m) = (y-n)(m-a); due to floating point used < epsilon instead 
-        if abs((p2[1] - p1[1])*(p3[0] - p1[0]) - 
-               (p3[1] - p1[1])*(p2[0] - p1[0])) < 1e-10:
+        area = triangle_area(p1, p2, p3)
+        if abs(area) < 1e-10:  # Points are collinear
             return max(a, b, c) > 2*radius
             
-        # Calculate circumradius; Heron's formula for area of triangle
-        s = (a + b + c)/2 
-        area = (s*(s-a)*(s-b)*(s-c))**0.5
-        circumradius = (a*b*c)/(4*area) #R = abc/4*area when a,b,c are three sides of triangle and A is the area of triangle
+        # Calculate circumradius using R = abc/(4A)
+        circumradius = (a * b * c)/(4 * area)
         return circumradius > radius
     
-    #Seperated by exactly A_PTS, B_PTS consecutive intervening points; give 3 consecutive points for calculation (Sliding window)
+    #Seperated by exactly A_PTS, B_PTS consecutive intervening points
     for i in range(NUMPOINTS - A_PTS - B_PTS - 2):
         if cant_fit_in_circle(POINTS[i], 
                             POINTS[i + A_PTS + 1],
@@ -213,31 +205,12 @@ def lic_9(NUMPOINTS, POINTS, C_PTS, D_PTS, EPSILON):
     """Check if three points form angle < (PI-EPSILON) or > (PI+EPSILON)"""
     if NUMPOINTS < 5:
         return False
-        
-    def get_angle(p1, vertex, p2):
-        if p1 == vertex or p2 == vertex:
-            return 0  # undefined angle
-            
-        # Calculate vectors
-        v1 = (p1[0] - vertex[0], p1[1] - vertex[1]) #v1 = p1 - vertex
-        v2 = (p2[0] - vertex[0], p2[1] - vertex[1]) #v2 = p2 - vertex
-        
-        # Calculate dot product and magnitudes
-        dot = v1[0]*v2[0] + v1[1]*v2[1]
-        mag1 = (v1[0]**2 + v1[1]**2)**0.5
-        mag2 = (v2[0]**2 + v2[1]**2)**0.5
-        
-        if mag1 == 0 or mag2 == 0:
-            return 0  # undefined angle
-            
-        # Calculate angle
-        return math.acos(max(min(dot/(mag1*mag2), 1), -1)) #cos(θ) = (v1·v2)/(|v1|*|v2|), hence θ = acos...
 
     #Sequence of 3 points to check angles
     for i in range(NUMPOINTS - C_PTS - D_PTS - 2):
-        angle = get_angle(POINTS[i],
-                         POINTS[i + C_PTS + 1],
-                         POINTS[i + C_PTS + D_PTS + 2])
-        if angle != 0 and (angle < math.pi - EPSILON or angle > math.pi + EPSILON):
+        angle = calculate_angle(POINTS[i],
+                              POINTS[i + C_PTS + 1],
+                              POINTS[i + C_PTS + D_PTS + 2])
+        if not math.isnan(angle) and (angle < math.pi - EPSILON or angle > math.pi + EPSILON):
             return True
     return False
