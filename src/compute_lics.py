@@ -56,7 +56,7 @@ def lic_1(NUMPOINTS, POINTS, PARAMETERS):
     for i in range(NUMPOINTS-2):
         if (max(distance(POINTS[i],POINTS[i+1]),
                 distance(POINTS[i],POINTS[i+2]),
-                distance(POINTS[i+1],POINTS[i+2])) > PARAMETERS['RADIUS1']):
+                distance(POINTS[i+1],POINTS[i+2])) > 2*PARAMETERS['RADIUS1']):
             return True
         
     return False
