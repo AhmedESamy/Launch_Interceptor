@@ -77,7 +77,7 @@ def lic_2(NUMPOINTS, POINTS, PARAMETERS):
         if (angle < (math.pi - PARAMETERS['EPSILON']) or angle > (math.pi + PARAMETERS['EPSILON'])):
             return True
         
-        return False
+    return False
     
 def lic_3(NUMPOINTS, POINTS, PARAMETERS):
     """
