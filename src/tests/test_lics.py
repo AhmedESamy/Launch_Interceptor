@@ -2,7 +2,7 @@ import json
 from src.compute_lics import *
 
 # Load sample input data with LIC examples
-with open("input_LIC_test.json", "r") as f:
+with open("data/input_LIC_test.json", "r") as f:
     data = json.load(f)
 
 examples = data.get("examples", [])
