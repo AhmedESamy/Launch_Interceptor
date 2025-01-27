@@ -246,3 +246,27 @@ def lic_11(NUMPOINTS, POINTS, G_PTS):
         if POINTS[i + G_PTS + 1][0] < POINTS[i][0]:
             return True
     return False
+
+def lic_12(NUMPOINTS, POINTS, K_PTS, LENGTH1, LENGTH2):
+    """
+    Check that there exists two sets of two data points, separated
+    by exactly K_PTS, which are greater than LENGTH1 length apart 
+    and less than LENGTH2 length apart respectively. Note that the
+    two sets can contain the same data points. 
+    """
+    if NUMPOINTS < 3:
+        return False
+    length1_condition = False
+    length2_condition = False
+    for i in range(NUMPOINTS - K_PTS - 1):
+        if length1_condition and length2_condition:
+            # Early break, if both conditions are fulfilled
+            # before iterating all points
+            break
+        
+        dist = utils.distance(POINTS[i + K_PTS + 1], POINTS[i])
+        if dist > LENGTH1:
+            length1_condition = True
+        if dist < LENGTH2:
+            length2_condition = True
+    return length1_condition and length2_condition

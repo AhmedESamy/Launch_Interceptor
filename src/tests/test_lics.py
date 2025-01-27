@@ -41,3 +41,28 @@ def test_lic_10(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, expected_result):
 
 def test_lic_11(NUMPOINTS, POINTS, G_PTS, expected_result):
     assert lics.lic_11(NUMPOINTS, POINTS, G_PTS) == expected_result
+
+@pytest.mark.parametrize("NUMPOINTS, POINTS, K_PTS, LENGTH1, LENGTH2, expected_result", [
+    # First condition satisfied with (8, 2) and (14, 2) >= 5 (LENGTH1)
+    # Second condition satisfied with (6, 2) and (8, 2) <= 3 (LENGTH2)
+    (5, [[6, 2], [7, 2], [8, 2], [11, 2], [14, 2]], 1, 5, 3, True),
+    # Both conditions satisfied with (8, 2) and (14, 2) >= 5 (LENGTH1), <= 7 (LENGTH2)
+    (5, [[8, 2], [8, 2], [8, 2], [11, 2], [14, 2]], 1, 5, 7, True),
+    # First condition satisfied with (8, 2) and (14, 2) >= 5 (LENGTH1)
+    # Second condition satisfied with (6, 2) and (8, 2) <= 3 (LENGTH2)
+    # K_PTS > 1
+    (11, [[6, 2], [7, 2], [7, 2], [7, 2], [7, 2], [8, 2], [11, 2], [11, 2], [11, 2], [11, 2], [14, 2]], 4, 5, 3, True),
+    # No conditions satisfied
+    (5, [[6, 2], [7, 2], [8, 2], [11, 2], [14, 2]], 1, 100, 1, False),
+    # Only one condition satisfied
+    (5, [[6, 2], [7, 2], [8, 2], [11, 2], [14, 2]], 1, 5, 1, False),
+    # First condition satisfied with (8, 2) and (14, 2) >= 5 (LENGTH1)
+    # Second condition satisfied with (6, 2) and (8, 2) <= 3 (LENGTH2)
+    # However, fail due to K_PTS = 2, not allowing it
+    (5, [[6, 2], [7, 2], [8, 2], [11, 2], [14, 2]], 2, 5, 3, False),
+    # NUMPOINTS < 3 which automatically fails
+    (2, [[6, 2], [14, 2]], 1, 1, 1, False),
+])
+
+def test_lic_12(NUMPOINTS, POINTS, K_PTS, LENGTH1, LENGTH2, expected_result):
+    assert lics.lic_12(NUMPOINTS, POINTS, K_PTS, LENGTH1, LENGTH2) == expected_result
