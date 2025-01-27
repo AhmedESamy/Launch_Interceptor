@@ -1,3 +1,6 @@
+import math
+from utils import *
+
 def compute_lics(NUMPOINTS, POINTS, PARAMETERS):
     """
     Compute the Conditions Met Vector (CMV) for the given points and parameters.
@@ -31,16 +34,98 @@ def lic_0(NUMPOINTS, POINTS, PARAMETERS):
     LIC 0: Check if there exists at least one set of two consecutive data points
     that are a distance greater than LENGTH1 apart.
     """
-    pass  # To be implemented
+    if NUMPOINTS < 2:
+        return False
+    
+    for i in range(NUMPOINTS-1):
+        dist = distance(POINTS[i],POINTS[i+1])
+
+        if dist > PARAMETERS['LENGTH1']:
+            return True
+        
+    return False
 
 def lic_1(NUMPOINTS, POINTS, PARAMETERS):
     """
     LIC 1: Check if three consecutive data points cannot all be contained within
     or on a circle of radius RADIUS1.
     """
-    pass  # To be implemented
+    if NUMPOINTS < 3:
+        return False
+    
+    for i in range(NUMPOINTS-2):
+        if (max(distance(POINTS[i],POINTS[i+1]),
+                distance(POINTS[i],POINTS[i+2]),
+                distance(POINTS[i+1],POINTS[i+2])) > PARAMETERS['RADIUS1']):
+            return True
+        
+    return False
 
-# Add similar placeholder functions for LIC 2 through LIC 14
+def lic_2(NUMPOINTS, POINTS, PARAMETERS):
+    """
+    LIC 2: Returns True if there exists at least one set of three consecutive data points which form an angle such that angle < (PI - EPSILON) OR angle > (PI + EPSILON).
+    """
+    if NUMPOINTS < 3:
+        return False
+    
+    for i in range(NUMPOINTS-2):
+        angle = calculate_angle(POINTS[i],POINTS[i+1],POINTS[i+2])
+
+        if triangle_area(POINTS[i],POINTS[i+1],POINTS[i+2]) == 0:
+            continue
+
+        if (angle < (math.pi - PARAMETERS['EPSILON']) or angle > (math.pi + PARAMETERS['EPSILON'])):
+            return True
+        
+        return False
+    
+def lic_3(NUMPOINTS, POINTS, PARAMETERS):
+    """
+    There exists at least one set of three consecutive consecutive elements in pts that are the vertices of a triangle with area greater than AREA1 > 0.
+    """
+
+    if NUMPOINTS < 3:
+        return False
+    
+    for i in range(NUMPOINTS-2):
+        area = triangle_area(POINTS[i],POINTS[i+1],POINTS[i+2])
+
+        if area > PARAMETERS['AREA1']:
+            return True
+        
+    return False
+
+def lic_4(NUMPOINTS, POINTS, PARAMETERS):
+    """
+    Return True if there exists at least one set of 2 <= Q_PTS consecutive elements in pts that lie in more than QUADS quadrants.    
+    """
+    Q_PTS = PARAMETERS['Q_PTS']
+    QUADS = PARAMETERS['QUADS']
+
+    if NUMPOINTS < Q_PTS:
+        return False
+    
+    for i in range(NUMPOINTS-Q_PTS+1):
+        q_consec = POINTS[i:i+Q_PTS]
+        quad_count = [0,0,0,0] # Counters for Quadrants I, II, III, VI respectively
+        for p in q_consec:
+            if p[1] >= 0: # Quadrant I or II
+                if p[0] >= 0:
+                    quad_idx = 0 # Quadrant I
+                else: 
+                    quad_idx = 0 # Quadrant II
+            else: # Quadrant III or IV
+                if p[0] <= 0:
+                    quad_idx = 2 # Quadrant III
+                else: 
+                    quad_idx = 3 # Quadrant VI 
+            
+            quad_count[quad_idx] += 1
+
+        if (4 - quad_count.count(0)) > QUADS:
+            return True
+        
+        return False
 
 def lic_5(NUMPOINTS, POINTS):
     """Check if there are two consecutive points where x coordinate decreases"""
