@@ -22,3 +22,22 @@ import src.compute_lics as lics
 
 def test_lic_10(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, expected_result):
     assert lics.lic_10(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1) == expected_result
+    
+@pytest.mark.parametrize("NUMPOINTS, POINTS, G_PTS, expected_result", [
+    # (5, 3) and (1, 10) is a valid pair
+    # First pair gives the right answer
+    (3, [[5, 3], [99, 99], [1, 10]], 1, True),
+    # (5, 3) and (1, 10) is a valid pair
+    # Last pair gives the right answer
+    (5, [[99, 99], [99, 99], [5, 3], [99, 99], [1, 10]], 1, True),
+    # No such pair exists
+    (5, [[99, 99], [99, 99], [99, 99], [99, 99], [100, 100]], 3, False),
+    # (101, 100) and (100, 120) is a valid pair
+    # G_PTS is greater than 1
+    (6, [[101, 100], [99, 99], [99, 99], [99, 99], [99, 99], [100, 120]], 4, True),
+    # NUMPOINTS < 3
+    (2, [[5, 4], [3, 8]], 1, False),
+])
+
+def test_lic_11(NUMPOINTS, POINTS, G_PTS, expected_result):
+    assert lics.lic_11(NUMPOINTS, POINTS, G_PTS) == expected_result

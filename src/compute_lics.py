@@ -235,5 +235,22 @@ def lic_10(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1):
                                POINTS[i + E_PTS + 1],
                                POINTS[i + E_PTS + F_PTS + 2]) > AREA1:
             return True
+<<<<<<< HEAD
 >>>>>>> 32e918a (feat: Added a function to check LIC 10)
+=======
+    return False
+
+def lic_11(NUMPOINTS, POINTS, G_PTS):
+    """ 
+    Check if there exists a set of two data points (X[i], Y[i]) and 
+    (X[j], Y[j]), separated by exactly G_PTS, where i < j and
+    X[j] - X[i] < 0.
+    """
+    if NUMPOINTS < 3:
+        return False
+    
+    for i in range(NUMPOINTS - G_PTS - 1):
+        if POINTS[i + G_PTS + 1][0] < POINTS[i][0]:
+            return True
+>>>>>>> 5a98d20 (feat: Added a function to check LIC 11)
     return False
