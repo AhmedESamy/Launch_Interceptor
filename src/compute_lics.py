@@ -1,9 +1,5 @@
 import math
-<<<<<<< HEAD
-from utils import *
-=======
 import src.utils as utils
->>>>>>> 32e918a (feat: Added a function to check LIC 10)
 
 def compute_lics(NUMPOINTS, POINTS, PARAMETERS):
     """
@@ -42,7 +38,7 @@ def lic_0(NUMPOINTS, POINTS, PARAMETERS):
         return False
     
     for i in range(NUMPOINTS-1):
-        dist = distance(POINTS[i],POINTS[i+1])
+        dist = utils.distance(POINTS[i],POINTS[i+1])
 
         if dist > PARAMETERS['LENGTH1']:
             return True
@@ -58,9 +54,9 @@ def lic_1(NUMPOINTS, POINTS, PARAMETERS):
         return False
     
     for i in range(NUMPOINTS-2):
-        if (max(distance(POINTS[i],POINTS[i+1]),
-                distance(POINTS[i],POINTS[i+2]),
-                distance(POINTS[i+1],POINTS[i+2])) > PARAMETERS['RADIUS1']):
+        if (max(utils.distance(POINTS[i],POINTS[i+1]),
+                utils.distance(POINTS[i],POINTS[i+2]),
+                utils.distance(POINTS[i+1],POINTS[i+2])) > PARAMETERS['RADIUS1']):
             return True
         
     return False
@@ -73,9 +69,9 @@ def lic_2(NUMPOINTS, POINTS, PARAMETERS):
         return False
     
     for i in range(NUMPOINTS-2):
-        angle = calculate_angle(POINTS[i],POINTS[i+1],POINTS[i+2])
+        angle = utils.calculate_angle(POINTS[i],POINTS[i+1],POINTS[i+2])
 
-        if triangle_area(POINTS[i],POINTS[i+1],POINTS[i+2]) == 0:
+        if utils.triangle_area(POINTS[i],POINTS[i+1],POINTS[i+2]) == 0:
             continue
 
         if (angle < (math.pi - PARAMETERS['EPSILON']) or angle > (math.pi + PARAMETERS['EPSILON'])):
@@ -92,7 +88,7 @@ def lic_3(NUMPOINTS, POINTS, PARAMETERS):
         return False
     
     for i in range(NUMPOINTS-2):
-        area = triangle_area(POINTS[i],POINTS[i+1],POINTS[i+2])
+        area = utils.triangle_area(POINTS[i],POINTS[i+1],POINTS[i+2])
 
         if area > PARAMETERS['AREA1']:
             return True
@@ -145,13 +141,13 @@ def lic_6(NUMPOINTS, POINTS, N_PTS, DIST):
         
     def point_to_line_distance(point, start, end):
         if start == end:
-            return distance(point, start)
+            return utils.distance(point, start)
             
         # Calculate perpendicular distance from point to line
-        area = abs(triangle_area(point, start, end)) * 2
-        base = distance(start, end)
+        area = abs(utils.triangle_area(point, start, end)) * 2
+        base = utils.distance(start, end)
         
-        return area/base if base != 0 else distance(point, start)
+        return area/base if base != 0 else utils.distance(point, start)
     
     #Sliding window Check: Example N_PTS of 3 and will give [0] to [2], [1] to [3]...[n-3] to [n-2]
     for i in range(NUMPOINTS - N_PTS + 1):
@@ -172,7 +168,7 @@ def lic_7(NUMPOINTS, POINTS, K_PTS, LENGTH1):
     for i in range(NUMPOINTS - K_PTS):
         p1 = POINTS[i]
         p2 = POINTS[i + K_PTS]
-        if distance(p1, p2) > LENGTH1:
+        if utils.distance(p1, p2) > LENGTH1:
             return True
     return False
 
@@ -183,12 +179,12 @@ def lic_8(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1):
         
     def cant_fit_in_circle(p1, p2, p3, radius):
         # Calculate distances between points
-        a = distance(p2, p3)
-        b = distance(p1, p3)
-        c = distance(p1, p2)
+        a = utils.distance(p2, p3)
+        b = utils.distance(p1, p3)
+        c = utils.distance(p1, p2)
         
         # If points form a line, check max distance
-        area = triangle_area(p1, p2, p3)
+        area = utils.triangle_area(p1, p2, p3)
         if abs(area) < 1e-10:  # Points are collinear
             return max(a, b, c) > 2*radius
             
@@ -212,13 +208,12 @@ def lic_9(NUMPOINTS, POINTS, C_PTS, D_PTS, EPSILON):
 
     #Sequence of 3 points to check angles
     for i in range(NUMPOINTS - C_PTS - D_PTS - 2):
-        angle = calculate_angle(POINTS[i],
+        angle = utils.calculate_angle(POINTS[i],
                               POINTS[i + C_PTS + 1],
                               POINTS[i + C_PTS + D_PTS + 2])
         if not math.isnan(angle) and (angle < math.pi - EPSILON or angle > math.pi + EPSILON):
             return True
-<<<<<<< HEAD
-=======
+
     return False
 
 def lic_10(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1):
@@ -235,9 +230,7 @@ def lic_10(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1):
                                POINTS[i + E_PTS + 1],
                                POINTS[i + E_PTS + F_PTS + 2]) > AREA1:
             return True
-<<<<<<< HEAD
->>>>>>> 32e918a (feat: Added a function to check LIC 10)
-=======
+
     return False
 
 def lic_11(NUMPOINTS, POINTS, G_PTS):
@@ -252,5 +245,4 @@ def lic_11(NUMPOINTS, POINTS, G_PTS):
     for i in range(NUMPOINTS - G_PTS - 1):
         if POINTS[i + G_PTS + 1][0] < POINTS[i][0]:
             return True
->>>>>>> 5a98d20 (feat: Added a function to check LIC 11)
     return False
