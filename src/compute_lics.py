@@ -77,7 +77,7 @@ def lic_2(NUMPOINTS, POINTS, PARAMETERS):
         if (angle < (math.pi - PARAMETERS['EPSILON']) or angle > (math.pi + PARAMETERS['EPSILON'])):
             return True
         
-        return False
+    return False
     
 def lic_3(NUMPOINTS, POINTS, PARAMETERS):
     """
@@ -113,7 +113,7 @@ def lic_4(NUMPOINTS, POINTS, PARAMETERS):
                 if p[0] >= 0:
                     quad_idx = 0 # Quadrant I
                 else: 
-                    quad_idx = 0 # Quadrant II
+                    quad_idx = 1 # Quadrant II
             else: # Quadrant III or IV
                 if p[0] <= 0:
                     quad_idx = 2 # Quadrant III
