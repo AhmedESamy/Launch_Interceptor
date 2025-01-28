@@ -14,10 +14,11 @@ def compute_lics(NUMPOINTS, POINTS, PARAMETERS):
         list: CMV (Conditions Met Vector).
     """
     CMV = [False] * 15  # Placeholder for 15 LIC conditions
-
-    # Placeholder: Implement logic for each LIC (0-14)
-    # Example:
-    # CMV[0] = lic_0(NUMPOINTS, POINTS, PARAMETERS)
+    CMV[0] = lic_0(NUMPOINTS, POINTS, PARAMETERS)
+    CMV[1] = lic_1(NUMPOINTS, POINTS, PARAMETERS)
+    CMV[2] = lic_2(NUMPOINTS, POINTS, PARAMETERS)
+    CMV[3] = lic_3(NUMPOINTS, POINTS, PARAMETERS)
+    CMV[4] = lic_4(NUMPOINTS, POINTS, PARAMETERS)
     CMV[5] = lic_5(NUMPOINTS, POINTS)
     CMV[6] = lic_6(NUMPOINTS, POINTS, PARAMETERS['N_PTS'], PARAMETERS['DIST'])
     CMV[7] = lic_7(NUMPOINTS, POINTS, PARAMETERS['K_PTS'], PARAMETERS['LENGTH1'])
@@ -25,7 +26,15 @@ def compute_lics(NUMPOINTS, POINTS, PARAMETERS):
                    PARAMETERS['B_PTS'], PARAMETERS['RADIUS1'])
     CMV[9] = lic_9(NUMPOINTS, POINTS, PARAMETERS['C_PTS'], 
                    PARAMETERS['D_PTS'], PARAMETERS['EPSILON'])
-
+    CMV[10] = lic_10(NUMPOINTS, POINTS, PARAMETERS['E_PTS'], PARAMETERS['F_PTS'], 
+                     PARAMETERS['AREA1'])
+    CMV[11] = lic_11(NUMPOINTS, POINTS, PARAMETERS['G_PTS'])
+    CMV[12] = lic_12(NUMPOINTS, POINTS, PARAMETERS['K_PTS'], PARAMETERS['LENGTH1'],
+                     PARAMETERS['LENGTH2'])
+    CMV[13] = lic_13(NUMPOINTS, POINTS, PARAMETERS['A_PTS'], PARAMETERS['B_PTS'], 
+                     PARAMETERS['RADIUS1'], PARAMETERS['RADIUS2'])
+    CMV[14] = lic_14(NUMPOINTS, POINTS, PARAMETERS['E_PTS'], PARAMETERS['F_PTS'], 
+                     PARAMETERS['AREA1'], PARAMETERS['AREA2'])
     return CMV
 
 # Placeholder functions for individual LIC computations
