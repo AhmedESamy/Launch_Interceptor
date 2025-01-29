@@ -94,6 +94,20 @@ def test_assert_lic_3():
 def test_lic_4(NUMPOINTS, POINTS, Q_PTS, QUADS, expected_result):
     assert lics.lic_4(NUMPOINTS, POINTS, Q_PTS, QUADS) == expected_result
 
+def test_assert_lic_4():
+    # LIC 4.3 Test - Breaks when Q_PTS = 1 < 2.
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_4(3, [[-1, 0], [2, 1], [0, -1]], 1, 2)
+    # LIC 4.4 Test - Breaks when QUADS = 0 < 1.
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_4(3, [[-1, 0], [2, 1], [0, -1]], 2, 0)
+    # LIC 4.5 Test - Breaks when QUADS = 4 > 3.
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_4(3, [[-1, 0], [2, 1], [0, -1]], 2, 4)
+
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, expected_result", [
     # LIC 5.1 Test - when X decreases from 2 to 1

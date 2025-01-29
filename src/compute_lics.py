@@ -116,6 +116,9 @@ def lic_4(NUMPOINTS, POINTS, Q_PTS, QUADS):
     """
     Return True if there exists at least one set of 2 <= Q_PTS consecutive elements in pts that lie in more than QUADS quadrants.    
     """
+    assert Q_PTS >= 2, f"AssertionError: Q_PTS must be larger than or equal to 2."
+    assert QUADS >= 1, f"AssertionError: QUADS must be larger than or equal to 1."
+    assert QUADS <= 3, f"AssertionError: QUADS must be smaller than or equal to 3."
 
     if NUMPOINTS < Q_PTS:
         return False
