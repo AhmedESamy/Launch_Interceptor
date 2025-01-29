@@ -14,11 +14,11 @@ def compute_lics(NUMPOINTS, POINTS, PARAMETERS):
         list: CMV (Conditions Met Vector).
     """
     CMV = [False] * 15  # Placeholder for 15 LIC conditions
-    CMV[0] = lic_0(NUMPOINTS, POINTS, PARAMETERS)
-    CMV[1] = lic_1(NUMPOINTS, POINTS, PARAMETERS)
-    CMV[2] = lic_2(NUMPOINTS, POINTS, PARAMETERS)
-    CMV[3] = lic_3(NUMPOINTS, POINTS, PARAMETERS)
-    CMV[4] = lic_4(NUMPOINTS, POINTS, PARAMETERS)
+    CMV[0] = lic_0(NUMPOINTS, POINTS, PARAMETERS['LENGTH1'])
+    CMV[1] = lic_1(NUMPOINTS, POINTS, PARAMETERS['RADIUS1'])
+    CMV[2] = lic_2(NUMPOINTS, POINTS, PARAMETERS['EPSILON'])
+    CMV[3] = lic_3(NUMPOINTS, POINTS, PARAMETERS['AREA1'])
+    CMV[4] = lic_4(NUMPOINTS, POINTS, PARAMETERS['Q_PTS'], PARAMETERS['QUADS'])
     CMV[5] = lic_5(NUMPOINTS, POINTS)
     CMV[6] = lic_6(NUMPOINTS, POINTS, PARAMETERS['N_PTS'], PARAMETERS['DIST'])
     CMV[7] = lic_7(NUMPOINTS, POINTS, PARAMETERS['K_PTS'], PARAMETERS['LENGTH1'])
@@ -38,7 +38,7 @@ def compute_lics(NUMPOINTS, POINTS, PARAMETERS):
     return CMV
 
 # Placeholder functions for individual LIC computations
-def lic_0(NUMPOINTS, POINTS, PARAMETERS):
+def lic_0(NUMPOINTS, POINTS, LENGTH1):
     """
     LIC 0: Check if there exists at least one set of two consecutive data points
     that are a distance greater than LENGTH1 apart.
@@ -49,12 +49,12 @@ def lic_0(NUMPOINTS, POINTS, PARAMETERS):
     for i in range(NUMPOINTS-1):
         dist = utils.distance(POINTS[i],POINTS[i+1])
 
-        if dist > PARAMETERS['LENGTH1']:
+        if dist > LENGTH1:
             return True
         
     return False
 
-def lic_1(NUMPOINTS, POINTS, PARAMETERS):
+def lic_1(NUMPOINTS, POINTS, RADIUS1):
     """
     LIC 1: Check if three consecutive data points cannot all be contained within
     or on a circle of radius RADIUS1.
@@ -65,12 +65,12 @@ def lic_1(NUMPOINTS, POINTS, PARAMETERS):
     for i in range(NUMPOINTS-2):
         if (max(utils.distance(POINTS[i],POINTS[i+1]),
                 utils.distance(POINTS[i],POINTS[i+2]),
-                utils.distance(POINTS[i+1],POINTS[i+2])) > 2*PARAMETERS['RADIUS1']):
+                utils.distance(POINTS[i+1],POINTS[i+2])) > 2*RADIUS1):
             return True
         
     return False
 
-def lic_2(NUMPOINTS, POINTS, PARAMETERS):
+def lic_2(NUMPOINTS, POINTS, EPSILON):
     """
     LIC 2: Returns True if there exists at least one set of three consecutive data points which form an angle such that angle < (PI - EPSILON) OR angle > (PI + EPSILON).
     """
@@ -83,12 +83,12 @@ def lic_2(NUMPOINTS, POINTS, PARAMETERS):
         if utils.triangle_area(POINTS[i],POINTS[i+1],POINTS[i+2]) == 0:
             continue
 
-        if (angle < (math.pi - PARAMETERS['EPSILON']) or angle > (math.pi + PARAMETERS['EPSILON'])):
+        if (angle < (math.pi - EPSILON) or angle > (math.pi + EPSILON)):
             return True
         
     return False
     
-def lic_3(NUMPOINTS, POINTS, PARAMETERS):
+def lic_3(NUMPOINTS, POINTS, AREA1):
     """
     There exists at least one set of three consecutive consecutive elements in pts that are the vertices of a triangle with area greater than AREA1 > 0.
     """
@@ -99,17 +99,15 @@ def lic_3(NUMPOINTS, POINTS, PARAMETERS):
     for i in range(NUMPOINTS-2):
         area = utils.triangle_area(POINTS[i],POINTS[i+1],POINTS[i+2])
 
-        if area > PARAMETERS['AREA1']:
+        if area > AREA1:
             return True
         
     return False
 
-def lic_4(NUMPOINTS, POINTS, PARAMETERS):
+def lic_4(NUMPOINTS, POINTS, Q_PTS, QUADS):
     """
     Return True if there exists at least one set of 2 <= Q_PTS consecutive elements in pts that lie in more than QUADS quadrants.    
     """
-    Q_PTS = PARAMETERS['Q_PTS']
-    QUADS = PARAMETERS['QUADS']
 
     if NUMPOINTS < Q_PTS:
         return False
