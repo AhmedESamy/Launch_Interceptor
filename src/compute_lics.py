@@ -267,6 +267,8 @@ def lic_12(NUMPOINTS, POINTS, K_PTS, LENGTH1, LENGTH2):
     and less than LENGTH2 length apart respectively. Note that the
     two sets can contain the same data points. 
     """
+    assert LENGTH2 >= 0, f"AssertionError: LENGTH2 must be at least 0, but got {LENGTH2}" 
+    
     if NUMPOINTS < 3:
         return False
     length1_condition = False

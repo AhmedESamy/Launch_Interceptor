@@ -231,7 +231,13 @@ def test_assert_lic_11():
 
 def test_lic_12(NUMPOINTS, POINTS, K_PTS, LENGTH1, LENGTH2, expected_result):
     assert lics.lic_12(NUMPOINTS, POINTS, K_PTS, LENGTH1, LENGTH2) == expected_result
-    
+
+def test_assert_lic_12():
+    # LIC 12.8 - Breaks LENGTH2 >= 0, LENGTH2 = -1
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_12(5, [[6, 2], [7, 2], [8, 2], [11, 2], [14, 2]], 1, 5, -1)
+        assert "LENGTH2" in str(assertInfo.value)  
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1, RADIUS2, expected_result", [
     # LIC 13.1
