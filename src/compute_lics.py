@@ -250,6 +250,8 @@ def lic_11(NUMPOINTS, POINTS, G_PTS):
     (X[j], Y[j]), separated by exactly G_PTS, where i < j and
     X[j] - X[i] < 0.
     """
+    assert G_PTS >= 1 and G_PTS <= NUMPOINTS - 2, f'AssertionError: G_PTS must be between 1 and {NUMPOINTS-2}, but got {G_PTS}'
+    
     if NUMPOINTS < 3:
         return False
     

@@ -183,13 +183,22 @@ def test_assert_lic_10():
     # LIC 11.4 - (101, 100) and (100, 120) is a valid pair
     # G_PTS is greater than 1
     (6, [[101, 100], [99, 99], [99, 99], [99, 99], [99, 99], [100, 120]], 4, True),
-    # LIC 11.5 - NUMPOINTS < 3
-    (2, [[5, 4], [3, 8]], 1, False),
 ])
 
 def test_lic_11(NUMPOINTS, POINTS, G_PTS, expected_result):
     assert lics.lic_11(NUMPOINTS, POINTS, G_PTS) == expected_result
 
+def test_assert_lic_11():
+    # LIC 11.5 - Breaks 1 <= G_PTS <= NUMPOINTS - 2, G_PTS = 0
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_11(5, [[5, 4], [3, 8], [5, 4], [3, 8], [5, 4]], 0)
+        assert "G_PTS" in str(assertInfo.value)
+    # LIC 11.6 - Breaks 1 <= G_PTS <= NUMPOINTS - 2, G_PTS = NUMPOINTS
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_11(5, [[5, 4], [3, 8], [5, 4], [3, 8], [5, 4]], 5)
+        assert "G_PTS" in str(assertInfo.value)
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, K_PTS, LENGTH1, LENGTH2, expected_result", [
     # LIC 12.1
