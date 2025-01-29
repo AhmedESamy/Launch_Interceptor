@@ -74,6 +74,12 @@ def test_lic_4(NUMPOINTS, POINTS, Q_PTS, QUADS, expected_result):
     # LIC 5.2 Test - When there is no decrease
     # Expected to give False
     (3, [[1, 0], [2, 0], [3, 0]], False),
+    # LIC 5.3 Test - Decreasing negative numbers
+    # Expected to give True
+    (3, [[-1,0], [-2,0], [-3,0]], True),
+    # LIC 5.4 Test - Increasing negative numbers
+    # Expected to give False
+    (3, [[-3,0], [-2,0], [-1,0]], False),
 ])
 
 def test_lic_5(NUMPOINTS, POINTS, expected_result):
@@ -87,6 +93,12 @@ def test_lic_5(NUMPOINTS, POINTS, expected_result):
     # LIC 6.2 Test - when point (1,0.5) is < DIST of 1.0 from line
     # Expected to give False
     (3, [[0, 0], [1, 0.5], [2, 0]], 3, 1.0, False),
+    # LIC 6.3 Test - Invalid input cases: NUMPOINTS < 3, N_PTS > NUMPOINTS, DIST < 0 
+    (2, [[0,0], [1,1]], 2, 1, False),
+    (3, [[0,0], [1,1], [2,2]], 4, 1, False),
+    (3, [[0,0], [1,1], [2,2]], 2, -1, False),
+    # LIC 6.4 Test - Collinear points
+    (3, [[0,0], [1,0], [2,0]], 3, 0.1, False),
 ])
 
 def test_lic_6(NUMPOINTS, POINTS, N_PTS, DIST, expected_result):
@@ -100,6 +112,13 @@ def test_lic_6(NUMPOINTS, POINTS, N_PTS, DIST, expected_result):
     # LIC 7.2 Test - Distance from [0,0] to [3,3] < length1 of 5
     # Expected to give False
     (5, [[0, 0], [1, 1], [2, 2], [3, 3], [4, 4]], 2, 5.0, False),
+    # LIC 7.3 Test - Invalid input cases: NUMPOINTS < 3, K_PTS < 1, K_PTS > NUMPOINTS - 2
+    (2, [[0,0], [1,1]], 1, 1, False),
+    (3, [[0,0], [1,1], [2,2]], 0, 1, False),
+    (3, [[0,0], [1,1], [2,2]], 2, 1, False),
+    # LIC 7.4 Test - Negative coordinate cases
+    (4, [[-2,-2], [-1,-1], [0,0], [2,2]], 2, 4, True),
+    (4, [[-1,-1], [-0.5,-0.5], [0,0], [1,1]], 2, 4, False),
 ])
 
 def test_lic_7(NUMPOINTS, POINTS, K_PTS, LENGTH1, expected_result):
@@ -113,6 +132,14 @@ def test_lic_7(NUMPOINTS, POINTS, K_PTS, LENGTH1, expected_result):
     # LIC 8.2 Test - [0, 0], [2, 0],[1, 1.1732] can fit in circle: R = 1.15 < 2
     # Expected to give False
     (5, [[0, 0], [0, 1], [2, 0],[4, 0],[1, 1.1732]], 1, 1, 2.0, False),
+    # LIC 8.3 Test - Invalid Inputs
+    (4, [[0,0], [1,1], [2,2], [3,3]], 1, 1, 1, False),  # NUMPOINTS < 5
+    (5, [[0,0], [1,1], [2,2], [3,3], [4,4]], 0, 1, 1, False),  # A_PTS < 1
+    (5, [[0,0], [1,1], [2,2], [3,3], [4,4]], 1, 0, 1, False),  # B_PTS < 1
+    (5, [[0,0], [1,1], [2,2], [3,3], [4,4]], 2, 2, 1, False),  # A_PTS + B_PTS > 
+    # LIC 8.4 Test - Collinear test cases
+    # Points on line with distance > 2*RADIUS1
+    (5, [[0,0], [1,0], [2,0], [3,0], [4,0]], 1, 1, 1, True),
 ])
 
 def test_lic_8(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1, expected_result):
@@ -126,6 +153,16 @@ def test_lic_8(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1, expected_result):
     # LIC 9.2 Test - [1, 1], [3, 3], [5, 5] forms PI radians (180 degree) = PI > PI - EPSILON
     # Expected to give False
     (5, [[1, 1], [2, 2], [3, 3],[4, 4],[5, 5]], 1, 1, 0.5, False),
+    # LIC 9.3 Test - Invalid input test
+    (4, [[0,0], [1,0], [0,1], [1,1]], 1, 1, 1.5, False),  # NUMPOINTS < 5
+    (5, [[0,0], [1,0], [0,1], [1,1], [2,2]], 0, 1, 1.5, False),  # C_PTS < 1
+    (5, [[0,0], [1,0], [0,1], [1,1], [2,2]], 1, 0, 1.5, False),  # D_PTS < 1
+    (5, [[0,0], [1,0], [0,1], [1,1], [2,2]], 2, 2, 1.5, False),  # C_PTS + D_PTS > NUMPOINTS-3
+    # LIC 9.4 Straight angles (180° = 3.14159 rad)
+    # Points on straight line, EPSILON = 0.1
+    (5, [[0,0], [1,1], [2,2], [3,3], [4,4]], 1, 1, 0.1, False),
+    # Points on x-axis, EPSILON = 0.2
+    (5, [[-2,0], [-1,0], [0,0], [1,0], [2,0]], 1, 1, 0.2, False),
 ])
 
 def test_lic_9(NUMPOINTS, POINTS, C_PTS, D_PTS, EPSILON, expected_result):
