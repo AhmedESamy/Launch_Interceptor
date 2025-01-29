@@ -172,9 +172,9 @@ def lic_7(NUMPOINTS, POINTS, K_PTS, LENGTH1):
     if NUMPOINTS < 3:
         return False
         
-    for i in range(NUMPOINTS - K_PTS):
+    for i in range(NUMPOINTS - K_PTS - 1):
         p1 = POINTS[i]
-        p2 = POINTS[i + K_PTS]
+        p2 = POINTS[i + K_PTS + 1]
         if utils.distance(p1, p2) > LENGTH1:
             return True
     return False
