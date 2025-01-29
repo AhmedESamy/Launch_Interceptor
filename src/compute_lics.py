@@ -294,6 +294,8 @@ def lic_13(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1, RADIUS2):
     in or on a circle of radius RADIUS2. The two sets may contain the
     same points.
     """
+    assert RADIUS2 >= 0, f"AssertionError: RADIUS2 must be at least 0, but got {RADIUS2}" 
+    
     if NUMPOINTS < 5:
         return False
     
