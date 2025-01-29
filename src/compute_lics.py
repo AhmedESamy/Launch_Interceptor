@@ -99,6 +99,7 @@ def lic_3(NUMPOINTS, POINTS, AREA1):
     """
     There exists at least one set of three consecutive consecutive elements in pts that are the vertices of a triangle with area greater than AREA1 > 0.
     """
+    assert AREA1 >= 0, f"AssertionError: AREA1 must not be negative."
 
     if NUMPOINTS < 3:
         return False

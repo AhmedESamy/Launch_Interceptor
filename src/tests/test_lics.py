@@ -75,6 +75,12 @@ def test_assert_lic_2():
 def test_lic_3(NUMPOINTS, POINTS, AREA1, expected_result):
     assert lics.lic_3(NUMPOINTS, POINTS, AREA1) == expected_result
 
+def test_assert_lic_3():
+    # LIC 3.3 Test - Breaks when AREA1 = -1 < 0.
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_3(3, [[-1, 0], [2, 1], [0, -1]], -1)
+
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, Q_PTS, QUADS, expected_result", [
     # LIC 4.1 Test - [-1,0],[1,0],[0,-2] contains Q_PTS=3 consecutive elements in more than QUADS=2 different quadrants
