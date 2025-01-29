@@ -43,6 +43,8 @@ def lic_0(NUMPOINTS, POINTS, LENGTH1):
     LIC 0: Check if there exists at least one set of two consecutive data points
     that are a distance greater than LENGTH1 apart.
     """
+    assert LENGTH1 >= 0, f"AssertionError: LENGTH1 must not be negative."
+
     if NUMPOINTS < 2:
         return False
     
@@ -59,6 +61,8 @@ def lic_1(NUMPOINTS, POINTS, RADIUS1):
     LIC 1: Check if three consecutive data points cannot all be contained within
     or on a circle of radius RADIUS1.
     """
+    assert RADIUS1 >= 0, f"AssertionError: RADIUS1 must not be negative."
+
     if NUMPOINTS < 3:
         return False
     
@@ -74,6 +78,9 @@ def lic_2(NUMPOINTS, POINTS, EPSILON):
     """
     LIC 2: Returns True if there exists at least one set of three consecutive data points which form an angle such that angle < (PI - EPSILON) OR angle > (PI + EPSILON).
     """
+    assert EPSILON >= 0, f"AssertionError: EPSILON must not be negative."
+    assert EPSILON < math.pi, f"AssertionError: EPSILON must not be larger than PI."
+
     if NUMPOINTS < 3:
         return False
     
@@ -92,6 +99,7 @@ def lic_3(NUMPOINTS, POINTS, AREA1):
     """
     There exists at least one set of three consecutive consecutive elements in pts that are the vertices of a triangle with area greater than AREA1 > 0.
     """
+    assert AREA1 >= 0, f"AssertionError: AREA1 must not be negative."
 
     if NUMPOINTS < 3:
         return False
@@ -108,6 +116,9 @@ def lic_4(NUMPOINTS, POINTS, Q_PTS, QUADS):
     """
     Return True if there exists at least one set of 2 <= Q_PTS consecutive elements in pts that lie in more than QUADS quadrants.    
     """
+    assert Q_PTS >= 2, f"AssertionError: Q_PTS must be larger than or equal to 2."
+    assert QUADS >= 1, f"AssertionError: QUADS must be larger than or equal to 1."
+    assert QUADS <= 3, f"AssertionError: QUADS must be smaller than or equal to 3."
 
     if NUMPOINTS < Q_PTS:
         return False

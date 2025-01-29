@@ -14,6 +14,12 @@ import src.compute_lics as lics
 def test_lic_0(NUMPOINTS, POINTS, LENGTH1, expected_result):
     assert lics.lic_0(NUMPOINTS, POINTS, LENGTH1) == expected_result
 
+def test_assert_lic_0():
+    # LIC 0.3 Test - Breaks when LENGTH1 = -1 < 0.
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_0(3, [[-1, 0], [2, 1], [0, -1]], -1)
+
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, RADIUS1, expected_result", [
     # LIC 1.1 Test - Points [-1,0], [1,0], [0,-2] can't be contained by RADIUS1=1
@@ -26,6 +32,12 @@ def test_lic_0(NUMPOINTS, POINTS, LENGTH1, expected_result):
 
 def test_lic_1(NUMPOINTS, POINTS, RADIUS1, expected_result):
     assert lics.lic_1(NUMPOINTS, POINTS, RADIUS1) == expected_result
+
+def test_assert_lic_1():
+    # LIC 1.3 Test - Breaks when RADIUS = -1 < 0.
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_1(3, [[-1, 0], [2, 1], [0, -1]], -1)
 
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, EPSILON, expected_result", [
@@ -40,6 +52,16 @@ def test_lic_1(NUMPOINTS, POINTS, RADIUS1, expected_result):
 def test_lic_2(NUMPOINTS, POINTS, EPSILON, expected_result):
     assert lics.lic_2(NUMPOINTS, POINTS, EPSILON) == expected_result
 
+def test_assert_lic_2():
+    # LIC 2.3 Test - Breaks when EPSILON = -1 < 0.
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_2(3, [[-1, 0], [2, 1], [0, -1]], -1)
+    # LIC 2.4 Test - Breaks when EPSILON = 4 > PI.
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_2(3, [[-1, 0], [2, 1], [0, -1]], 4)
+
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, AREA1, expected_result", [
     # LIC 3.1 Test - Vertices in [-1,0],[1,0],[0,-2] creates a surface area of 2 > AREA1=1.9
@@ -53,6 +75,12 @@ def test_lic_2(NUMPOINTS, POINTS, EPSILON, expected_result):
 def test_lic_3(NUMPOINTS, POINTS, AREA1, expected_result):
     assert lics.lic_3(NUMPOINTS, POINTS, AREA1) == expected_result
 
+def test_assert_lic_3():
+    # LIC 3.3 Test - Breaks when AREA1 = -1 < 0.
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_3(3, [[-1, 0], [2, 1], [0, -1]], -1)
+
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, Q_PTS, QUADS, expected_result", [
     # LIC 4.1 Test - [-1,0],[1,0],[0,-2] contains Q_PTS=3 consecutive elements in more than QUADS=2 different quadrants
@@ -65,6 +93,20 @@ def test_lic_3(NUMPOINTS, POINTS, AREA1, expected_result):
 
 def test_lic_4(NUMPOINTS, POINTS, Q_PTS, QUADS, expected_result):
     assert lics.lic_4(NUMPOINTS, POINTS, Q_PTS, QUADS) == expected_result
+
+def test_assert_lic_4():
+    # LIC 4.3 Test - Breaks when Q_PTS = 1 < 2.
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_4(3, [[-1, 0], [2, 1], [0, -1]], 1, 2)
+    # LIC 4.4 Test - Breaks when QUADS = 0 < 1.
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_4(3, [[-1, 0], [2, 1], [0, -1]], 2, 0)
+    # LIC 4.5 Test - Breaks when QUADS = 4 > 3.
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_4(3, [[-1, 0], [2, 1], [0, -1]], 2, 4)
 
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, expected_result", [
