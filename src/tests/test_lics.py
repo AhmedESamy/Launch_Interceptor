@@ -52,6 +52,16 @@ def test_assert_lic_1():
 def test_lic_2(NUMPOINTS, POINTS, EPSILON, expected_result):
     assert lics.lic_2(NUMPOINTS, POINTS, EPSILON) == expected_result
 
+def test_assert_lic_2():
+    # LIC 2.3 Test - Breaks when EPSILON = -1 < 0.
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_2(3, [[-1, 0], [2, 1], [0, -1]], -1)
+    # LIC 2.4 Test - Breaks when EPSILON = 4 > PI.
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_2(3, [[-1, 0], [2, 1], [0, -1]], 4)
+
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, AREA1, expected_result", [
     # LIC 3.1 Test - Vertices in [-1,0],[1,0],[0,-2] creates a surface area of 2 > AREA1=1.9

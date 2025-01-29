@@ -78,6 +78,9 @@ def lic_2(NUMPOINTS, POINTS, EPSILON):
     """
     LIC 2: Returns True if there exists at least one set of three consecutive data points which form an angle such that angle < (PI - EPSILON) OR angle > (PI + EPSILON).
     """
+    assert EPSILON >= 0, f"AssertionError: EPSILON must not be negative."
+    assert EPSILON < math.pi, f"AssertionError: EPSILON must not be larger than PI."
+
     if NUMPOINTS < 3:
         return False
     
