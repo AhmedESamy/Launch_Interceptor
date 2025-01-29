@@ -411,7 +411,7 @@
         "EXPECTED_OUTPUT": "False"
       },
       {
-        "name": "LIC 7.1 Test - Distance from [0,0] to [4,4] > length1 of 5",
+        "name": "LIC 7.1 Test - Distance from [0,0] to [4,4] > length1 of 4",
         "NUMPOINTS": 4,
         "POINTS": [
           [0, 0],
@@ -420,7 +420,7 @@
           [4, 4]
         ],
         "PARAMETERS": {
-          "LENGTH1": 5.0,
+          "LENGTH1": 4.0,
           "RADIUS1": 1.5,
           "EPSILON": 0.1,
           "AREA1": 3.0,
@@ -540,66 +540,67 @@
         "name": "LIC 9.1 Test - Points form angle < PI-EPSILON",
         "NUMPOINTS": 5,
         "POINTS": [
-          [0, 0],
-          [1, 1],
-          [2, 0],
-          [3, 3],
-          [4, 0]
+            [1, 0],    
+            [0, 0],    
+            [0, 0],    
+            [0, 0],    
+            [0, 1]     
         ],
         "PARAMETERS": {
-          "LENGTH1": 2.0,
-          "RADIUS1": 1.5,
-          "EPSILON": 0.1,
-          "AREA1": 3.0,
-          "Q_PTS": 3,
-          "QUADS": 2,
-          "N_PTS": 4,
-          "DIST": 1.5,
-          "K_PTS": 2,
-          "A_PTS": 1,
-          "B_PTS": 1,
-          "C_PTS": 1,
-          "D_PTS": 1,
-          "E_PTS": 1,
-          "F_PTS": 1,
-          "LENGTH2": 0.5,
-          "RADIUS2": 2.0,
-          "AREA2": 1.0
+            "LENGTH1": 2.0,
+            "RADIUS1": 1.5,
+            "EPSILON": 0.1,
+            "AREA1": 3.0,
+            "Q_PTS": 3,
+            "QUADS": 2,
+            "N_PTS": 4,
+            "DIST": 1.5,
+            "K_PTS": 2,
+            "A_PTS": 1,
+            "B_PTS": 1,
+            "C_PTS": 1,
+            "D_PTS": 1,
+            "E_PTS": 1,
+            "F_PTS": 1,
+            "LENGTH2": 0.5,
+            "RADIUS2": 2.0,
+            "AREA2": 1.0
         },
         "EXPECTED_OUTPUT": "True"
-      },
-      {
+    },
+    {
         "name": "LIC 9.2 Test - Points form angle = PI",
         "NUMPOINTS": 5,
         "POINTS": [
-          [0, 0],
-          [1, 1],
-          [2, 0],
-          [3, 1],
-          [4, 0]
+            [-1, 0],   
+            [0, 0],    
+            [0, 0],    
+            [0, 0],    
+            [1, 0]     
         ],
         "PARAMETERS": {
-          "LENGTH1": 2.0,
-          "RADIUS1": 1.5,
-          "EPSILON": 0.1,
-          "AREA1": 3.0,
-          "Q_PTS": 3,
-          "QUADS": 2,
-          "N_PTS": 4,
-          "DIST": 1.5,
-          "K_PTS": 2,
-          "A_PTS": 1,
-          "B_PTS": 1,
-          "C_PTS": 1,
-          "D_PTS": 1,
-          "E_PTS": 1,
-          "F_PTS": 1,
-          "LENGTH2": 0.5,
-          "RADIUS2": 2.0,
-          "AREA2": 1.0
+            "LENGTH1": 2.0,
+            "RADIUS1": 1.5,
+            "EPSILON": 0.1,
+            "AREA1": 3.0,
+            "Q_PTS": 3,
+            "QUADS": 2,
+            "N_PTS": 4,
+            "DIST": 1.5,
+            "K_PTS": 2,
+            "A_PTS": 1,
+            "B_PTS": 1,
+            "C_PTS": 1,
+            "D_PTS": 1,
+            "E_PTS": 1,
+            "F_PTS": 1,
+            "LENGTH2": 0.5,
+            "RADIUS2": 2.0,
+            "AREA2": 1.0
         },
         "EXPECTED_OUTPUT": "False"
-      }
+    }
+     
     ]
   }
   

@@ -212,15 +212,28 @@ def lic_8(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1):
 
 def lic_9(NUMPOINTS, POINTS, C_PTS, D_PTS, EPSILON):
     """Check if three points form angle < (PI-EPSILON) or > (PI+EPSILON)"""
-    if NUMPOINTS < 5:
+    if (NUMPOINTS < 5 or C_PTS < 1 or D_PTS < 1 or (C_PTS + D_PTS) > NUMPOINTS - 3):
         return False
 
-    #Sequence of 3 points to check angles
     for i in range(NUMPOINTS - C_PTS - D_PTS - 2):
-        angle = utils.calculate_angle(POINTS[i],
-                              POINTS[i + C_PTS + 1],
-                              POINTS[i + C_PTS + D_PTS + 2])
-        if not math.isnan(angle) and (angle < math.pi - EPSILON or angle > math.pi + EPSILON):
+        p1 = POINTS[i]
+        vertex = POINTS[i + C_PTS + 1]
+        p2 = POINTS[i + C_PTS + D_PTS + 2]
+
+        # Skip if points are coincident
+        d1 = utils.distance(p1, vertex)
+        d2 = utils.distance(p2, vertex)
+        if d1 < 1e-10 or d2 < 1e-10:
+            continue
+
+        angle = utils.calculate_angle(p1, vertex, p2)
+        
+        # Check if angle is invalid or undefined
+        if math.isnan(angle):
+            continue
+            
+        # Check if angle meets the condition
+        if angle < (math.pi - EPSILON) or angle > (math.pi + EPSILON):
             return True
 
     return False

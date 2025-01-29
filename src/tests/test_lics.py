@@ -2,7 +2,7 @@ import pytest
 import math
 import json
 from src.utils import distance, calculate_angle, triangle_area
-from src.compute_lics import lic_0, lic_1, lic_2, lic_3, lic_4
+from src.compute_lics import lic_0, lic_1, lic_2, lic_3, lic_4, lic_5, lic_6, lic_7, lic_8, lic_9
 import src.compute_lics as lics
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, expected_result", [
@@ -265,4 +265,5 @@ def test_lic_9(example_index, expected_result):
         example['PARAMETERS']['D_PTS'],
         example['PARAMETERS']['EPSILON']
     )
-    assert result == (example['EXPECTED_OUTPUT'] == "True")
+    expected = (example['EXPECTED_OUTPUT'] == "True")
+    assert result == expected, f"Expected {expected} but got {result}"
