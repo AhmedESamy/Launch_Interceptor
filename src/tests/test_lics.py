@@ -1,8 +1,5 @@
-import pytest
-import math
-import json
-from src.utils import distance, calculate_angle, triangle_area
-from src.compute_lics import lic_0, lic_1, lic_2, lic_3, lic_4
+import pytest, math, json
+import src.utils as utils
 import src.compute_lics as lics
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, expected_result", [
@@ -127,7 +124,7 @@ examples = data.get("examples", [])
     ([7, 7], [7, 7], 0),  # point1 == point2
 ])
 def test_distance(point1, point2, expected_distance):
-    result = distance(point1, point2)
+    result = utils.distance(point1, point2)
     assert math.isclose(result, expected_distance, rel_tol=1e-9)
 
 
@@ -137,7 +134,7 @@ def test_distance(point1, point2, expected_distance):
     ([1, 0], [2, 0], [3, 0], math.pi),  # A line
 ])
 def test_calculate_angle(point1, point2, point3, expected_angle):
-    result = calculate_angle(point1, point2, point3)
+    result = utils.calculate_angle(point1, point2, point3)
     assert math.isclose(result, expected_angle, rel_tol=1e-6)
 
 
@@ -147,7 +144,7 @@ def test_calculate_angle(point1, point2, point3, expected_angle):
     ([10, 10], [20, 20], [-10, -10], 0),  # A line
 ])
 def test_triangle_area(point1, point2, point3, expected_area):
-    result = triangle_area(point1, point2, point3)
+    result = utils.triangle_area(point1, point2, point3)
     assert math.isclose(result, expected_area, rel_tol=1e-9)
 
 
@@ -157,7 +154,7 @@ def test_triangle_area(point1, point2, point3, expected_area):
 ])
 def test_lic_0(example_index, expected_result):
     example = examples[example_index]
-    result = lic_0(example['NUMPOINTS'], example['POINTS'], example['PARAMETERS'])
+    result = lics.lic_0(example['NUMPOINTS'], example['POINTS'], example['PARAMETERS'])
     assert result == expected_result
 
 
@@ -167,7 +164,7 @@ def test_lic_0(example_index, expected_result):
 ])
 def test_lic_1(example_index, expected_result):
     example = examples[example_index]
-    result = lic_1(example['NUMPOINTS'], example['POINTS'], example['PARAMETERS'])
+    result = lics.lic_1(example['NUMPOINTS'], example['POINTS'], example['PARAMETERS'])
     assert result == expected_result
 
 
@@ -177,7 +174,7 @@ def test_lic_1(example_index, expected_result):
 ])
 def test_lic_2(example_index, expected_result):
     example = examples[example_index]
-    result = lic_2(example['NUMPOINTS'], example['POINTS'], example['PARAMETERS'])
+    result = lics.lic_2(example['NUMPOINTS'], example['POINTS'], example['PARAMETERS'])
     assert result == expected_result
 
 
@@ -187,7 +184,7 @@ def test_lic_2(example_index, expected_result):
 ])
 def test_lic_3(example_index, expected_result):
     example = examples[example_index]
-    result = lic_3(example['NUMPOINTS'], example['POINTS'], example['PARAMETERS'])
+    result = lics.lic_3(example['NUMPOINTS'], example['POINTS'], example['PARAMETERS'])
     assert result == expected_result
 
 
@@ -197,7 +194,7 @@ def test_lic_3(example_index, expected_result):
 ])
 def test_lic_4(example_index, expected_result):
     example = examples[example_index]
-    result = lic_4(example['NUMPOINTS'], example['POINTS'], example['PARAMETERS'])
+    result = lics.lic_4(example['NUMPOINTS'], example['POINTS'], example['PARAMETERS'])
     assert result == expected_result
 
 @pytest.mark.parametrize("example_index, expected_result", [
@@ -206,7 +203,7 @@ def test_lic_4(example_index, expected_result):
 ])
 def test_lic_5(example_index, expected_result):
     example = examples[example_index]
-    result = lic_5(example['NUMPOINTS'], example['POINTS'])
+    result = lics.lic_5(example['NUMPOINTS'], example['POINTS'])
     assert result == (example['EXPECTED_OUTPUT'] == "True")
 
 @pytest.mark.parametrize("example_index, expected_result", [
@@ -215,7 +212,7 @@ def test_lic_5(example_index, expected_result):
 ])
 def test_lic_6(example_index, expected_result):
     example = examples[example_index]
-    result = lic_6(
+    result = lics.lic_6(
         example['NUMPOINTS'],
         example['POINTS'],
         example['PARAMETERS']['N_PTS'],
@@ -229,7 +226,7 @@ def test_lic_6(example_index, expected_result):
 ])
 def test_lic_7(example_index, expected_result):
     example = examples[example_index]
-    result = lic_7(
+    result = lics.lic_7(
         example['NUMPOINTS'],
         example['POINTS'],
         example['PARAMETERS']['K_PTS'],
@@ -243,7 +240,7 @@ def test_lic_7(example_index, expected_result):
 ])
 def test_lic_8(example_index, expected_result):
     example = examples[example_index]
-    result = lic_8(
+    result = lics.lic_8(
         example['NUMPOINTS'],
         example['POINTS'],
         example['PARAMETERS']['A_PTS'],
@@ -258,7 +255,7 @@ def test_lic_8(example_index, expected_result):
 ])
 def test_lic_9(example_index, expected_result):
     example = examples[example_index]
-    result = lic_9(
+    result = lics.lic_9(
         example['NUMPOINTS'],
         example['POINTS'],
         example['PARAMETERS']['C_PTS'],
