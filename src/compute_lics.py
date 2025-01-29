@@ -43,6 +43,8 @@ def lic_0(NUMPOINTS, POINTS, LENGTH1):
     LIC 0: Check if there exists at least one set of two consecutive data points
     that are a distance greater than LENGTH1 apart.
     """
+    assert LENGTH1 >= 0, f"AssertionError: LENGTH1 must not be negative."
+
     if NUMPOINTS < 2:
         return False
     

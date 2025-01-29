@@ -14,6 +14,12 @@ import src.compute_lics as lics
 def test_lic_0(NUMPOINTS, POINTS, LENGTH1, expected_result):
     assert lics.lic_0(NUMPOINTS, POINTS, LENGTH1) == expected_result
 
+def test_assert_lic_0():
+    # LIC 0.3 Test - Breaks when LENGTH1 = -1 < 0.
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_0(3, [[-1, 0], [2, 1], [0, -1]], -1)
+
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, RADIUS1, expected_result", [
     # LIC 1.1 Test - Points [-1,0], [1,0], [0,-2] can't be contained by RADIUS1=1
