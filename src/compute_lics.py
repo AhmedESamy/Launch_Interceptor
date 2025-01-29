@@ -352,6 +352,8 @@ def lic_14(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, AREA2):
     area greater than AREA1 and a triangle with area less than AREA2 respectively.
     The two sets may contain the same points.
     """
+    assert AREA2 >= 0, f"AssertionError: AREA2 must be at least 0, but got {AREA2}" 
+    
     if NUMPOINTS < 5:
         return False    
     

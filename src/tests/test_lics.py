@@ -295,3 +295,10 @@ def test_assert_lic_13():
 
 def test_lic_14(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, AREA2, expected_result):
     assert lics.lic_14(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, AREA2) == expected_result
+    
+def test_assert_lic_14():
+    # LIC 14.6 - Breaks AREA2 >= 0, AREA2 = -1
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_14(5, [[4, 9], [0, 0], [8, 14], [0, 0], [8, 9]], 1, 1, 9, -1)
+        assert "AREA2" in str(assertInfo.value) 
