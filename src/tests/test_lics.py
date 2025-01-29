@@ -146,13 +146,29 @@ def test_lic_9(NUMPOINTS, POINTS, C_PTS, D_PTS, EPSILON, expected_result):
     (5, [[2, 3], [8, 5], [5, 3], [5, 5], [5, 7]], 1, 1, 6, False),
     # LIC 10.5 - (2, 3), (5, 3), (5, 7) gives a triangle of area 6 
     # Triplets exist but not at the correct spacing
-    (5, [[2, 3], [8, 5], [5, 3], [5, 5], [5, 7]], 2, 1, 5, False),
-    # LIC 10.6 - NUMPOINTS < 5 is automatic fail
-    (3, [[2, 3], [5, 3], [5, 7]], 1, 1, 5, False),
+    (6, [[2, 3], [8, 5], [5, 3], [5, 5], [5, 7], [5, 7]], 2, 1, 5, False),
 ])
 
 def test_lic_10(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, expected_result):
     assert lics.lic_10(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1) == expected_result
+
+def test_assert_lic_10():
+    # LIC 10.6 - Breaks contract E_PTS >= 1, E_PTS = 0
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_10(5, [[2, 3], [8, 5], [5, 3], [5, 5], [5, 7]], 0, 1, 5)
+        assert "E_PTS" in str(assertInfo.value)
+    # LIC 10.7 - Break contract F_PTS >= 1, F_PTS = 0
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_10(5, [[2, 3], [8, 5], [5, 3], [5, 5], [5, 7]], 1, 0, 5)
+        assert "F_PTS" in str(assertInfo.value)
+    # LIC 10.8 - Breaks contract E_PTS + F_PTS <= NUMPOINTS - 3
+    #            since E_PTS + F_PTS = 2 + 1 = 3, wheras NUMPOINTS - 3 = 2
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_10(5, [[2, 3], [8, 5], [5, 3], [5, 5], [5, 7]], 2, 1, 5)
+        assert "Sum of E_PTS and F_PTS" in str(assertInfo.value)
    
     
 @pytest.mark.parametrize("NUMPOINTS, POINTS, G_PTS, expected_result", [

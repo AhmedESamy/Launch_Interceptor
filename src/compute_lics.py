@@ -229,6 +229,10 @@ def lic_10(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1):
     consecutive points, that are the vertices of a triangle with area greater than AREA1.
     This condition does not hold for NUMPOINTS < 5.
     """
+    assert E_PTS >= 1, f"AssertionError: E_PTS must be at least 1, but got {E_PTS}"
+    assert F_PTS >= 1, f"AssertionError: F_PTS must be at least 1, but got {F_PTS}"
+    assert E_PTS + F_PTS <= NUMPOINTS - 3, f"AssertionError: Sum of E_PTS and F_PTS must be at most {NUMPOINTS - 3}, but got {E_PTS + F_PTS}"
+
     if NUMPOINTS < 5:
         return False
     
