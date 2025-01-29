@@ -33,6 +33,12 @@ def test_assert_lic_0():
 def test_lic_1(NUMPOINTS, POINTS, RADIUS1, expected_result):
     assert lics.lic_1(NUMPOINTS, POINTS, RADIUS1) == expected_result
 
+def test_assert_lic_1():
+    # LIC 1.3 Test - Breaks when RADIUS = -1 < 0.
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_1(3, [[-1, 0], [2, 1], [0, -1]], -1)
+
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, EPSILON, expected_result", [
     # LIC 2.1 Test - [1,0],[0,0],[0,1] forms valid pi/2 angle.

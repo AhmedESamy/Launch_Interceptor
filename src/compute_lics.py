@@ -61,6 +61,8 @@ def lic_1(NUMPOINTS, POINTS, RADIUS1):
     LIC 1: Check if three consecutive data points cannot all be contained within
     or on a circle of radius RADIUS1.
     """
+    assert RADIUS1 >= 0, f"AssertionError: RADIUS1 must not be negative."
+
     if NUMPOINTS < 3:
         return False
     
