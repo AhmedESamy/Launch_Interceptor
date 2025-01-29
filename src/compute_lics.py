@@ -145,7 +145,7 @@ def lic_5(NUMPOINTS, POINTS):
 
 def lic_6(NUMPOINTS, POINTS, N_PTS, DIST):
     """Check if any point is further than DIST from line between first and last points"""
-    if NUMPOINTS < 3:
+    if NUMPOINTS < 3 or N_PTS > NUMPOINTS or DIST < 0:
         return False
         
     def point_to_line_distance(point, start, end):
@@ -171,12 +171,12 @@ def lic_6(NUMPOINTS, POINTS, N_PTS, DIST):
 
 def lic_7(NUMPOINTS, POINTS, K_PTS, LENGTH1):
     """Check if there are two points K_PTS apart with distance > LENGTH1"""
-    if NUMPOINTS < 3:
+    if NUMPOINTS < 3 or K_PTS < 1 or K_PTS > NUMPOINTS -2:
         return False
         
-    for i in range(NUMPOINTS - K_PTS):
+    for i in range(NUMPOINTS - K_PTS - 1):
         p1 = POINTS[i]
-        p2 = POINTS[i + K_PTS]
+        p2 = POINTS[i + K_PTS + 1]
         if utils.distance(p1, p2) > LENGTH1:
             return True
     return False
@@ -184,6 +184,10 @@ def lic_7(NUMPOINTS, POINTS, K_PTS, LENGTH1):
 def lic_8(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1):
     """Check if there are three points that can't fit in circle of RADIUS1"""
     if NUMPOINTS < 5:
+        return False
+    if A_PTS < 1 or B_PTS < 1:
+        return False
+    if A_PTS + B_PTS > NUMPOINTS - 3:
         return False
         
     def cant_fit_in_circle(p1, p2, p3, radius):

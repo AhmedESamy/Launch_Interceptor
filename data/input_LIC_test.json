@@ -352,11 +352,13 @@
       },
       {
         "name": "LIC 6.1 Test - when point (1,2) is > DIST of 1.0 from line",
-        "NUMPOINTS": 3,
+        "NUMPOINTS": 5,
         "POINTS": [
           [0, 0],
           [1, 2],
-          [2, 0]
+          [1, 0],
+          [3, 3],
+          [4, 4]
         ],
         "PARAMETERS": {
           "LENGTH1": 2.0,
@@ -411,16 +413,17 @@
         "EXPECTED_OUTPUT": "False"
       },
       {
-        "name": "LIC 7.1 Test - Distance from [0,0] to [4,4] > length1 of 4",
-        "NUMPOINTS": 4,
+        "name": "LIC 7.1 Test - Distance from [0,0] to [5,5] > length1 of 7",
+        "NUMPOINTS": 5,
         "POINTS": [
           [0, 0],
           [1, 1],
           [2, 2],
-          [4, 4]
+          [5, 5],
+          [6, 6]
         ],
         "PARAMETERS": {
-          "LENGTH1": 4.0,
+          "LENGTH1": 7.0,
           "RADIUS1": 1.5,
           "EPSILON": 0.1,
           "AREA1": 3.0,
@@ -443,12 +446,13 @@
       },
       {
         "name": "LIC 7.2 Test - Distance from [0,0] to [3,3] < length1 of 5",
-        "NUMPOINTS": 4,
+        "NUMPOINTS": 5,
         "POINTS": [
           [0, 0],
           [1, 1],
           [2, 2],
-          [3, 3]
+          [3, 3], 
+          [4, 4]
         ],
         "PARAMETERS": {
           "LENGTH1": 5.0,
@@ -473,14 +477,14 @@
         "EXPECTED_OUTPUT": "False"
       },
       {
-        "name": "LIC 8.1 Test - [3,0], [2,2],[4,0] can't fit in circle",
+        "name": "LIC 8.1 Test - [0,0], [2,0],[4,4] can't fit in circle: R = 2.52 > 1",
         "NUMPOINTS": 5,
         "POINTS": [
           [0, 0],
-          [1, 1],
+          [1, 0],
+          [2, 0],
           [3, 0],
-          [2, 2],
-          [4, 0]
+          [4, 4]
         ],
         "PARAMETERS": {
           "LENGTH1": 2.0,
@@ -505,18 +509,18 @@
         "EXPECTED_OUTPUT": "True"
       },
       {
-        "name": "LIC 8.2 Test - [0.5,0.5], [1,1],[0,1] can fit in circle",
+        "name": "LIC 8.2 Test - [0, 0], [2, 0],[1, 1.1732] can fit in circle: R = 1.15 < 2",
         "NUMPOINTS": 5,
         "POINTS": [
           [0, 0],
-          [1, 1],
-          [0.5, 0.5],
-          [1, 1],
-          [0, 1]
+          [0, 1],
+          [2, 0],
+          [4, 0],
+          [1, 1.1732]
         ],
         "PARAMETERS": {
           "LENGTH1": 2.0,
-          "RADIUS1": 1.0,
+          "RADIUS1": 2.0,
           "EPSILON": 0.1,
           "AREA1": 3.0,
           "Q_PTS": 3,
@@ -537,19 +541,19 @@
         "EXPECTED_OUTPUT": "False"
       },
       {
-        "name": "LIC 9.1 Test - Points form angle < PI-EPSILON",
+        "name": "LIC 9.1 Test - [1, 1], [3, 0], [5, 1] forms 2.214 radians < PI-EPSILON (2.642) ",
         "NUMPOINTS": 5,
         "POINTS": [
-            [1, 0],    
-            [0, 0],    
-            [0, 0],    
-            [0, 0],    
-            [0, 1]     
+            [1, 1],    
+            [2, 2],    
+            [3, 0],    
+            [4, 4],    
+            [5, 1]     
         ],
         "PARAMETERS": {
             "LENGTH1": 2.0,
             "RADIUS1": 1.5,
-            "EPSILON": 0.1,
+            "EPSILON": 0.5,
             "AREA1": 3.0,
             "Q_PTS": 3,
             "QUADS": 2,
@@ -569,19 +573,19 @@
         "EXPECTED_OUTPUT": "True"
     },
     {
-        "name": "LIC 9.2 Test - Points form angle = PI",
+        "name": "LIC 9.2 Test -[1, 1], [3, 3], [5, 5] forms PI radians (180 degree) = PI > PI - EPSILON",
         "NUMPOINTS": 5,
         "POINTS": [
-            [-1, 0],   
-            [0, 0],    
-            [0, 0],    
-            [0, 0],    
-            [1, 0]     
+            [1, 1],   
+            [2, 2],    
+            [3, 3],    
+            [4, 4],    
+            [5, 5]     
         ],
         "PARAMETERS": {
             "LENGTH1": 2.0,
             "RADIUS1": 1.5,
-            "EPSILON": 0.1,
+            "EPSILON": 0.5,
             "AREA1": 3.0,
             "Q_PTS": 3,
             "QUADS": 2,
