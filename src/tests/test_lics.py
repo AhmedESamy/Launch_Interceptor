@@ -180,12 +180,7 @@ def test_assert_lic_8():
     # LIC 9.2 Test - [1, 1], [3, 3], [5, 5] forms PI radians (180 degree) = PI > PI - EPSILON
     # Expected to give False
     (5, [[1, 1], [2, 2], [3, 3],[4, 4],[5, 5]], 1, 1, 0.5, False),
-    # LIC 9.3 Test - Invalid input test
-    (4, [[0,0], [1,0], [0,1], [1,1]], 1, 1, 1.5, False),  # NUMPOINTS < 5
-    (5, [[0,0], [1,0], [0,1], [1,1], [2,2]], 0, 1, 1.5, False),  # C_PTS < 1
-    (5, [[0,0], [1,0], [0,1], [1,1], [2,2]], 1, 0, 1.5, False),  # D_PTS < 1
-    (5, [[0,0], [1,0], [0,1], [1,1], [2,2]], 2, 2, 1.5, False),  # C_PTS + D_PTS > NUMPOINTS-3
-    # LIC 9.4 Straight angles (180° = 3.14159 rad)
+    # LIC 9.3 Straight angles (180° = 3.14159 rad)
     # Points on straight line, EPSILON = 0.1
     (5, [[0,0], [1,1], [2,2], [3,3], [4,4]], 1, 1, 0.1, False),
     # Points on x-axis, EPSILON = 0.2
@@ -194,7 +189,22 @@ def test_assert_lic_8():
 
 def test_lic_9(NUMPOINTS, POINTS, C_PTS, D_PTS, EPSILON, expected_result):
     assert lics.lic_9(NUMPOINTS, POINTS, C_PTS, D_PTS, EPSILON) == expected_result
-
+def test_assert_lic_9():
+    # LIC 9.4 - Invalid input cases: C_PTS < 1
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_9(5, [[0,0], [1,0], [0,1], [1,1], [2,2]], 0, 1, 1.5)
+        assert "C_PTS" in str(assertInfo.value)
+    # LIC 9.5 - Invalid input cases:  D_PTS < 1
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_9(5, [[0,0], [1,0], [0,1], [1,1], [2,2]], 1, 0, 1.5)
+        assert "D_PTS" in str(assertInfo.value)
+    # LIC 9.6 - Invalid input cases:  C_PTS + D_PTS > NUMPOINTS - 3
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_9(5, [[0,0], [1,0], [0,1], [1,1], [2,2]], 2, 2, 1.5)
+        assert "C_PTS + D_PTS" in str(assertInfo.value)
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, expected_result", [
     # LIC 10.1 - (2, 3), (5, 3), (5, 7) gives a triangle of area 6

@@ -225,6 +225,10 @@ def lic_8(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1):
 
 def lic_9(NUMPOINTS, POINTS, C_PTS, D_PTS, EPSILON):
     """Check if three points form angle < (PI-EPSILON) or > (PI+EPSILON)"""
+    assert C_PTS >= 1, f"AssertionError: C_PTS must be at least 1, but got {C_PTS}"
+    assert D_PTS >= 1, f"AssertionError: D_PTS must be at least 1, but got {D_PTS}"
+    assert C_PTS + D_PTS <= NUMPOINTS - 3, f"AssertionError: C_PTS + D_PTS must be at most NUMPOINTS-3, but got {C_PTS + D_PTS}"
+
     if (NUMPOINTS < 5 or C_PTS < 1 or D_PTS < 1 or (C_PTS + D_PTS) > NUMPOINTS - 3):
         return False
 
