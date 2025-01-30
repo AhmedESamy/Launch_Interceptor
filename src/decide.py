@@ -46,7 +46,6 @@ def compute_pum(CMV, LCM):
     Returns:
         list: PUM (Preliminary Unlocking Matrix).
     """
-    # Placeholder: Compute PUM based on the logical operators in LCM
     PUM = [[False for _ in range(15)] for _ in range(15)]
     for i in range(0, 15):
         for j in range(0, 15):
