@@ -1,5 +1,4 @@
 from src.compute_lics import compute_lics
-from src.utils import compute_pum, compute_fuv
 
 def decide(NUMPOINTS, POINTS, PARAMETERS, LCM, PUV, return_intermediate=True):
     """
@@ -34,3 +33,51 @@ def decide(NUMPOINTS, POINTS, PARAMETERS, LCM, PUV, return_intermediate=True):
         return launch_decision, {"CMV": CMV, "PUM": PUM, "FUV": FUV}
     
     return launch_decision
+
+
+def compute_pum(CMV, LCM):
+    """
+    Compute the Preliminary Unlocking Matrix (PUM) based on CMV and LCM.
+
+    Args:
+        CMV (list): Conditions Met Vector.
+        LCM (list): Logical Connector Matrix.
+
+    Returns:
+        list: PUM (Preliminary Unlocking Matrix).
+    """
+    # Placeholder: Compute PUM based on the logical operators in LCM
+    PUM = [[False for _ in range(15)] for _ in range(15)]
+    for i in range(0, 15):
+        for j in range(0, 15):
+            if (LCM[j][i] == 'ANDD'):
+                PUM[j][i] = CMV[j] and CMV[i]
+            elif (LCM[j][i] == 'ORR'):
+                PUM[j][i] = CMV[j] or CMV[i]
+            elif (LCM[j][i] == 'NOTUSED'):
+                PUM[j][i] = True
+    return PUM
+
+def compute_fuv(PUM, PUV):
+    """
+    Compute the Final Unlocking Vector (FUV).
+
+    Args:
+        PUM (list): Preliminary Unlocking Matrix.
+        PUV (list): Preliminary Unlocking Vector.
+
+    Returns:
+        list: FUV (Final Unlocking Vector).
+    """
+    FUV = [False] * 15
+    
+    for i in range(15):
+        if PUV[i] == False:
+            FUV[i] = True
+        else:
+            if all(PUM[i][j] for j in range(15)):
+                FUV[i] = True
+            else:
+                FUV[i] = False
+
+    return FUV
