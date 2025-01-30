@@ -154,6 +154,11 @@ def lic_5(NUMPOINTS, POINTS):
 
 def lic_6(NUMPOINTS, POINTS, N_PTS, DIST):
     """Check if any point is further than DIST from line between first and last points"""
+    assert N_PTS >= 3, f"AssertionError: N_PTS must be at least 3, but got {N_PTS}"
+    assert N_PTS <= NUMPOINTS, f"AssertionError: N_PTS must be at most {NUMPOINTS}, but got {N_PTS}"
+    assert DIST >= 0, f"AssertionError: DIST must be at least 0, but got {DIST}"
+    
+    
     if NUMPOINTS < 3:
         return False
         
@@ -180,6 +185,8 @@ def lic_6(NUMPOINTS, POINTS, N_PTS, DIST):
 
 def lic_7(NUMPOINTS, POINTS, K_PTS, LENGTH1):
     """Check if there are two points K_PTS apart with distance > LENGTH1"""
+    assert K_PTS >= 1 and K_PTS <= NUMPOINTS - 2, f'AssertionError: K_PTS must be between 1 and {NUMPOINTS-2}, but got {K_PTS}'
+
     if NUMPOINTS < 3:
         return False
         
@@ -192,9 +199,17 @@ def lic_7(NUMPOINTS, POINTS, K_PTS, LENGTH1):
 
 def lic_8(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1):
     """Check if there are three points that can't fit in circle of RADIUS1"""
+    assert A_PTS >= 1, f"AssertionError: A_PTS must be at least 1, but got {A_PTS}"
+    assert B_PTS >= 1, f"AssertionError: B_PTS must be at least 1, but got {B_PTS}"
+    assert A_PTS + B_PTS <= NUMPOINTS - 3, f"AssertionError: A_PTS + B_PTS must be at most NUMPOINTS-3, but got {A_PTS + B_PTS}"
+    
     if NUMPOINTS < 5:
         return False
-        
+    if A_PTS < 1 or B_PTS < 1:
+        return False
+    if A_PTS + B_PTS > NUMPOINTS - 3:
+        return False
+
     def cant_fit_in_circle(p1, p2, p3, radius):
         # Calculate distances between points
         a = utils.distance(p2, p3)
@@ -221,15 +236,33 @@ def lic_8(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1):
 
 def lic_9(NUMPOINTS, POINTS, C_PTS, D_PTS, EPSILON):
     """Check if three points form angle < (PI-EPSILON) or > (PI+EPSILON)"""
-    if NUMPOINTS < 5:
+    assert C_PTS >= 1, f"AssertionError: C_PTS must be at least 1, but got {C_PTS}"
+    assert D_PTS >= 1, f"AssertionError: D_PTS must be at least 1, but got {D_PTS}"
+    assert C_PTS + D_PTS <= NUMPOINTS - 3, f"AssertionError: C_PTS + D_PTS must be at most NUMPOINTS-3, but got {C_PTS + D_PTS}"
+
+    if (NUMPOINTS < 5 or C_PTS < 1 or D_PTS < 1 or (C_PTS + D_PTS) > NUMPOINTS - 3):
         return False
 
     #Sequence of 3 points to check angles
     for i in range(NUMPOINTS - C_PTS - D_PTS - 2):
-        angle = utils.calculate_angle(POINTS[i],
-                              POINTS[i + C_PTS + 1],
-                              POINTS[i + C_PTS + D_PTS + 2])
-        if not math.isnan(angle) and (angle < math.pi - EPSILON or angle > math.pi + EPSILON):
+        p1 = POINTS[i]
+        vertex = POINTS[i + C_PTS + 1]
+        p2 = POINTS[i + C_PTS + D_PTS + 2]
+
+        # Skip if points are coincident
+        d1 = utils.distance(p1, vertex)
+        d2 = utils.distance(p2, vertex)
+        if d1 < 1e-10 or d2 < 1e-10:
+            continue
+
+        angle = utils.calculate_angle(p1, vertex, p2)
+        
+        # Check if angle is invalid or undefined
+        if math.isnan(angle):
+            continue
+            
+        # Check if angle meets the condition
+        if angle < (math.pi - EPSILON) or angle > (math.pi + EPSILON):
             return True
 
     return False
