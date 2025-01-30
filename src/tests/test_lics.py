@@ -93,17 +93,28 @@ def test_lic_5(NUMPOINTS, POINTS, expected_result):
     # LIC 6.2 Test - when point (1,0.5) is < DIST of 1.0 from line
     # Expected to give False
     (3, [[0, 0], [1, 0.5], [2, 0]], 3, 1.0, False),
-    # LIC 6.3 Test - Invalid input cases: NUMPOINTS < 3, N_PTS > NUMPOINTS, DIST < 0 
-    (2, [[0,0], [1,1]], 2, 1, False),
-    (3, [[0,0], [1,1], [2,2]], 4, 1, False),
-    (3, [[0,0], [1,1], [2,2]], 2, -1, False),
-    # LIC 6.4 Test - Collinear points
+    # LIC 6.3 Test - Collinear points
     (3, [[0,0], [1,0], [2,0]], 3, 0.1, False),
 ])
 
 def test_lic_6(NUMPOINTS, POINTS, N_PTS, DIST, expected_result):
     assert lics.lic_6(NUMPOINTS, POINTS, N_PTS, DIST) == expected_result
-
+def test_assert_lic_6():
+    # LIC 6.4 - Invalid input cases: N_PTS < 3
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_6(2, [[0,0], [1,1]], 2, 1)
+        assert "N_PTS" in str(assertInfo.value)
+    # LIC 6.5 - Invalid input cases:  N_PTS > NUMPOINTS
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_6(3, [[0,0], [1,1], [2,2]], 4, 1)
+        assert "N_PTS" in str(assertInfo.value)
+    # LIC 6.6 - Invalid input cases: DIST < 0 
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_6(3, [[0,0], [1,1], [2,2]], 2, -1)
+        assert "DIST" in str(assertInfo.value)
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, K_PTS, LENGTH1, expected_result", [
     # LIC 7.1 Test - Distance from [0,0] to [5,5] > length1 of 7

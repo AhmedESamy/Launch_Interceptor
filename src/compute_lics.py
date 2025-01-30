@@ -143,6 +143,12 @@ def lic_5(NUMPOINTS, POINTS):
 
 def lic_6(NUMPOINTS, POINTS, N_PTS, DIST):
     """Check if any point is further than DIST from line between first and last points"""
+    
+    assert N_PTS >= 3, f"AssertionError: N_PTS must be at least 3, but got {N_PTS}"
+    assert N_PTS <= NUMPOINTS, f"AssertionError: N_PTS must be at most {NUMPOINTS}, but got {N_PTS}"
+    assert DIST >= 0, f"AssertionError: DIST must be at least 0, but got {DIST}"
+    
+    
     if NUMPOINTS < 3 or N_PTS > NUMPOINTS or DIST < 0:
         return False
         
