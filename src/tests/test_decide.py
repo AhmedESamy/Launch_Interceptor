@@ -3,7 +3,7 @@ from src.decide import decide
 
 def test_decide():
     # Load sample input data with multiple examples
-    with open("data/examples.json", "r") as f:
+    with open("data/input.json", "r") as f:
         data = json.load(f)
     
     examples = data.get("examples", [])
