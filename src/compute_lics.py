@@ -273,6 +273,10 @@ def lic_10(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1):
     consecutive points, that are the vertices of a triangle with area greater than AREA1.
     This condition does not hold for NUMPOINTS < 5.
     """
+    assert E_PTS >= 1, f"AssertionError: E_PTS must be at least 1, but got {E_PTS}"
+    assert F_PTS >= 1, f"AssertionError: F_PTS must be at least 1, but got {F_PTS}"
+    assert E_PTS + F_PTS <= NUMPOINTS - 3, f"AssertionError: Sum of E_PTS and F_PTS must be at most {NUMPOINTS - 3}, but got {E_PTS + F_PTS}"
+
     if NUMPOINTS < 5:
         return False
     
@@ -290,6 +294,8 @@ def lic_11(NUMPOINTS, POINTS, G_PTS):
     (X[j], Y[j]), separated by exactly G_PTS, where i < j and
     X[j] - X[i] < 0.
     """
+    assert G_PTS >= 1 and G_PTS <= NUMPOINTS - 2, f'AssertionError: G_PTS must be between 1 and {NUMPOINTS-2}, but got {G_PTS}'
+    
     if NUMPOINTS < 3:
         return False
     
@@ -305,6 +311,8 @@ def lic_12(NUMPOINTS, POINTS, K_PTS, LENGTH1, LENGTH2):
     and less than LENGTH2 length apart respectively. Note that the
     two sets can contain the same data points. 
     """
+    assert LENGTH2 >= 0, f"AssertionError: LENGTH2 must be at least 0, but got {LENGTH2}" 
+    
     if NUMPOINTS < 3:
         return False
     length1_condition = False
@@ -330,6 +338,8 @@ def lic_13(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1, RADIUS2):
     in or on a circle of radius RADIUS2. The two sets may contain the
     same points.
     """
+    assert RADIUS2 >= 0, f"AssertionError: RADIUS2 must be at least 0, but got {RADIUS2}" 
+    
     if NUMPOINTS < 5:
         return False
     
@@ -386,6 +396,8 @@ def lic_14(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, AREA2):
     area greater than AREA1 and a triangle with area less than AREA2 respectively.
     The two sets may contain the same points.
     """
+    assert AREA2 >= 0, f"AssertionError: AREA2 must be at least 0, but got {AREA2}" 
+    
     if NUMPOINTS < 5:
         return False    
     

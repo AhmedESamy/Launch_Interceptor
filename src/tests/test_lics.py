@@ -262,13 +262,29 @@ def test_assert_lic_9():
     (5, [[2, 3], [8, 5], [5, 3], [5, 5], [5, 7]], 1, 1, 6, False),
     # LIC 10.5 - (2, 3), (5, 3), (5, 7) gives a triangle of area 6 
     # Triplets exist but not at the correct spacing
-    (5, [[2, 3], [8, 5], [5, 3], [5, 5], [5, 7]], 2, 1, 5, False),
-    # LIC 10.6 - NUMPOINTS < 5 is automatic fail
-    (3, [[2, 3], [5, 3], [5, 7]], 1, 1, 5, False),
+    (6, [[2, 3], [8, 5], [5, 3], [5, 5], [5, 7], [5, 7]], 2, 1, 5, False),
 ])
 
 def test_lic_10(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, expected_result):
     assert lics.lic_10(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1) == expected_result
+
+def test_assert_lic_10():
+    # LIC 10.6 - Breaks contract E_PTS >= 1, E_PTS = 0
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_10(5, [[2, 3], [8, 5], [5, 3], [5, 5], [5, 7]], 0, 1, 5)
+        assert "E_PTS" in str(assertInfo.value)
+    # LIC 10.7 - Break contract F_PTS >= 1, F_PTS = 0
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_10(5, [[2, 3], [8, 5], [5, 3], [5, 5], [5, 7]], 1, 0, 5)
+        assert "F_PTS" in str(assertInfo.value)
+    # LIC 10.8 - Breaks contract E_PTS + F_PTS <= NUMPOINTS - 3
+    #            since E_PTS + F_PTS = 2 + 1 = 3, wheras NUMPOINTS - 3 = 2
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_10(5, [[2, 3], [8, 5], [5, 3], [5, 5], [5, 7]], 2, 1, 5)
+        assert "Sum of E_PTS and F_PTS" in str(assertInfo.value)
    
     
 @pytest.mark.parametrize("NUMPOINTS, POINTS, G_PTS, expected_result", [
@@ -283,13 +299,22 @@ def test_lic_10(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, expected_result):
     # LIC 11.4 - (101, 100) and (100, 120) is a valid pair
     # G_PTS is greater than 1
     (6, [[101, 100], [99, 99], [99, 99], [99, 99], [99, 99], [100, 120]], 4, True),
-    # LIC 11.5 - NUMPOINTS < 3
-    (2, [[5, 4], [3, 8]], 1, False),
 ])
 
 def test_lic_11(NUMPOINTS, POINTS, G_PTS, expected_result):
     assert lics.lic_11(NUMPOINTS, POINTS, G_PTS) == expected_result
 
+def test_assert_lic_11():
+    # LIC 11.5 - Breaks 1 <= G_PTS <= NUMPOINTS - 2, G_PTS = 0
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_11(5, [[5, 4], [3, 8], [5, 4], [3, 8], [5, 4]], 0)
+        assert "G_PTS" in str(assertInfo.value)
+    # LIC 11.6 - Breaks 1 <= G_PTS <= NUMPOINTS - 2, G_PTS = NUMPOINTS
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_11(5, [[5, 4], [3, 8], [5, 4], [3, 8], [5, 4]], 5)
+        assert "G_PTS" in str(assertInfo.value)
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, K_PTS, LENGTH1, LENGTH2, expected_result", [
     # LIC 12.1
@@ -322,7 +347,13 @@ def test_lic_11(NUMPOINTS, POINTS, G_PTS, expected_result):
 
 def test_lic_12(NUMPOINTS, POINTS, K_PTS, LENGTH1, LENGTH2, expected_result):
     assert lics.lic_12(NUMPOINTS, POINTS, K_PTS, LENGTH1, LENGTH2) == expected_result
-    
+
+def test_assert_lic_12():
+    # LIC 12.8 - Breaks LENGTH2 >= 0, LENGTH2 = -1
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_12(5, [[6, 2], [7, 2], [8, 2], [11, 2], [14, 2]], 1, 5, -1)
+        assert "LENGTH2" in str(assertInfo.value)  
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1, RADIUS2, expected_result", [
     # LIC 13.1
@@ -349,7 +380,13 @@ def test_lic_12(NUMPOINTS, POINTS, K_PTS, LENGTH1, LENGTH2, expected_result):
 
 def test_lic_13(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1, RADIUS2, expected_result):
     assert lics.lic_13(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1, RADIUS2) == expected_result
-    
+
+def test_assert_lic_13():
+    # LIC 13.6 - Breaks RADIUS2 >= 0, RADIUS2 = -1
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_13(5, [[3, 6], [0, 0], [5, 5], [0, 0], [5, 7]], 1, 1, 1, -1)
+        assert "RADIUS2" in str(assertInfo.value)     
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, AREA2, expected_result", [
     # LIC 14.1
@@ -374,3 +411,10 @@ def test_lic_13(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1, RADIUS2, expected_resu
 
 def test_lic_14(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, AREA2, expected_result):
     assert lics.lic_14(NUMPOINTS, POINTS, E_PTS, F_PTS, AREA1, AREA2) == expected_result
+    
+def test_assert_lic_14():
+    # LIC 14.6 - Breaks AREA2 >= 0, AREA2 = -1
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_14(5, [[4, 9], [0, 0], [8, 14], [0, 0], [8, 9]], 1, 1, 9, -1)
+        assert "AREA2" in str(assertInfo.value) 
