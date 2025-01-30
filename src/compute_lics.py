@@ -143,13 +143,12 @@ def lic_5(NUMPOINTS, POINTS):
 
 def lic_6(NUMPOINTS, POINTS, N_PTS, DIST):
     """Check if any point is further than DIST from line between first and last points"""
-    
     assert N_PTS >= 3, f"AssertionError: N_PTS must be at least 3, but got {N_PTS}"
     assert N_PTS <= NUMPOINTS, f"AssertionError: N_PTS must be at most {NUMPOINTS}, but got {N_PTS}"
     assert DIST >= 0, f"AssertionError: DIST must be at least 0, but got {DIST}"
     
     
-    if NUMPOINTS < 3 or N_PTS > NUMPOINTS or DIST < 0:
+    if NUMPOINTS < 3:
         return False
         
     def point_to_line_distance(point, start, end):
@@ -175,7 +174,9 @@ def lic_6(NUMPOINTS, POINTS, N_PTS, DIST):
 
 def lic_7(NUMPOINTS, POINTS, K_PTS, LENGTH1):
     """Check if there are two points K_PTS apart with distance > LENGTH1"""
-    if NUMPOINTS < 3 or K_PTS < 1 or K_PTS > NUMPOINTS -2:
+    assert K_PTS >= 1 and K_PTS <= NUMPOINTS - 2, f'AssertionError: K_PTS must be between 1 and {NUMPOINTS-2}, but got {K_PTS}'
+
+    if NUMPOINTS < 3:
         return False
         
     for i in range(NUMPOINTS - K_PTS - 1):
@@ -187,6 +188,10 @@ def lic_7(NUMPOINTS, POINTS, K_PTS, LENGTH1):
 
 def lic_8(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1):
     """Check if there are three points that can't fit in circle of RADIUS1"""
+    assert A_PTS >= 1, f"AssertionError: A_PTS must be at least 1, but got {A_PTS}"
+    assert B_PTS >= 1, f"AssertionError: B_PTS must be at least 1, but got {B_PTS}"
+    assert A_PTS + B_PTS <= NUMPOINTS - 3, f"AssertionError: A_PTS + B_PTS must be at most NUMPOINTS-3, but got {A_PTS + B_PTS}"
+    
     if NUMPOINTS < 5:
         return False
     if A_PTS < 1 or B_PTS < 1:

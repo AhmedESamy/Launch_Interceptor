@@ -123,18 +123,24 @@ def test_assert_lic_6():
     # LIC 7.2 Test - Distance from [0,0] to [3,3] < length1 of 5
     # Expected to give False
     (5, [[0, 0], [1, 1], [2, 2], [3, 3], [4, 4]], 2, 5.0, False),
-    # LIC 7.3 Test - Invalid input cases: NUMPOINTS < 3, K_PTS < 1, K_PTS > NUMPOINTS - 2
-    (2, [[0,0], [1,1]], 1, 1, False),
-    (3, [[0,0], [1,1], [2,2]], 0, 1, False),
-    (3, [[0,0], [1,1], [2,2]], 2, 1, False),
-    # LIC 7.4 Test - Negative coordinate cases
+    # LIC 7.3 Test - Negative coordinate cases
     (4, [[-2,-2], [-1,-1], [0,0], [2,2]], 2, 4, True),
     (4, [[-1,-1], [-0.5,-0.5], [0,0], [1,1]], 2, 4, False),
 ])
 
 def test_lic_7(NUMPOINTS, POINTS, K_PTS, LENGTH1, expected_result):
     assert lics.lic_7(NUMPOINTS, POINTS, K_PTS, LENGTH1) == expected_result
-
+def test_assert_lic_7():
+    # LIC 7.4 - Invalid input cases: K_PTS < 1
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_7(3, [[0,0], [1,1], [2,2]], 0, 1)
+        assert "K_PTS" in str(assertInfo.value)
+    # LIC 7.5 - Invalid input cases:  K_PTS > NUMPOINTS - 2
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_7(3, [[0,0], [1,1], [2,2]], 2, 1)
+        assert "K_PTS" in str(assertInfo.value)
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1, expected_result", [
     # LIC 8.1 Test - [0,0], [2,0],[4,4] can't fit in circle: R = 2.52 > 1
@@ -143,19 +149,29 @@ def test_lic_7(NUMPOINTS, POINTS, K_PTS, LENGTH1, expected_result):
     # LIC 8.2 Test - [0, 0], [2, 0],[1, 1.1732] can fit in circle: R = 1.15 < 2
     # Expected to give False
     (5, [[0, 0], [0, 1], [2, 0],[4, 0],[1, 1.1732]], 1, 1, 2.0, False),
-    # LIC 8.3 Test - Invalid Inputs
-    (4, [[0,0], [1,1], [2,2], [3,3]], 1, 1, 1, False),  # NUMPOINTS < 5
-    (5, [[0,0], [1,1], [2,2], [3,3], [4,4]], 0, 1, 1, False),  # A_PTS < 1
-    (5, [[0,0], [1,1], [2,2], [3,3], [4,4]], 1, 0, 1, False),  # B_PTS < 1
-    (5, [[0,0], [1,1], [2,2], [3,3], [4,4]], 2, 2, 1, False),  # A_PTS + B_PTS > 
-    # LIC 8.4 Test - Collinear test cases
+    # LIC 8.3 Test - Collinear test cases
     # Points on line with distance > 2*RADIUS1
     (5, [[0,0], [1,0], [2,0], [3,0], [4,0]], 1, 1, 1, True),
 ])
 
 def test_lic_8(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1, expected_result):
     assert lics.lic_8(NUMPOINTS, POINTS, A_PTS, B_PTS, RADIUS1) == expected_result
-
+def test_assert_lic_8():
+    # LIC 8.4 - Invalid input cases: A_PTS < 1
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_8(5, [[0,0], [1,1], [2,2], [3,3], [4,4]], 0, 1, 1)
+        assert "A_PTS" in str(assertInfo.value)
+    # LIC 8.5 - Invalid input cases:  B_PTS < 1
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_8(5, [[0,0], [1,1], [2,2], [3,3], [4,4]], 1, 0, 1)
+        assert "B_PTS" in str(assertInfo.value)
+    # LIC 8.6 - Invalid input cases:  A_PTS + B_PTS > NUMPOINTS - 3
+    # Gives assertionError
+    with pytest.raises(AssertionError) as assertInfo:
+        lics.lic_8(5, [[0,0], [1,1], [2,2], [3,3], [4,4]], 2, 2, 1)
+        assert "A_PTS + B_PTS" in str(assertInfo.value)
 
 @pytest.mark.parametrize("NUMPOINTS, POINTS, C_PTS, D_PTS, EPSILON, expected_result", [
     # LIC 9.1 Test - [1, 1], [3, 0], [5, 1] forms 2.214 radians < PI-EPSILON (2.642)
