@@ -58,6 +58,14 @@ Execute unit tests:
    ```bash
    pytest src/tests/ --verbose
 
+## ** Task Breakdown**
+Ahmed: Designs the project structure, implements the decide function, integrates all components (CMV, PUM, FUV), and writes integration tests to ensure seamless functionality.
+Annika: Implements LICs 0 to 4, ensuring proper logic and thorough unit testing for these conditions.
+Kim: Implements LICs 5 to 9, ensuring proper logic and thorough unit testing for these conditions.
+Herdi: Implements LICs 10 to 14, ensuring accurate computations and comprehensive unit tests for these conditions.
+Maxim: Handles logical computations for PUM and FUV, ensuring correctness and consistency in their implementation and testing
+
+
 ## **Project Structure**
    ```bash
    project/
