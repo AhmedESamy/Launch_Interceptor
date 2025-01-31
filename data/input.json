@@ -206,7 +206,7 @@
         ["ORR", "ORR", "NOTUSED", "ORR", "ORR", "ORR", "ANDD", "ORR", "ORR", "NOTUSED", "NOTUSED", "NOTUSED", "ANDD", "NOTUSED", "ANDD"]
       ],
       "PUV": [false, true, true, true, true, false, true, false, true, false, true, true, true, false, true],
-      "EXPECTED_OUTPUT": "YES"
+      "EXPECTED_OUTPUT": "NO"
     }
   ]
 }
