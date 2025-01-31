@@ -53,7 +53,7 @@
       "EXPECTED_OUTPUT": "NO"
     },
     {
-      "name": "Example 2 - YES",
+      "name": "Example 2 - NO",
       "NUMPOINTS": 6,
       "POINTS": [
         [0, 0],
