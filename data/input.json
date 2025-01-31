@@ -104,6 +104,109 @@
       "PUV": [false, true, true, true, true, false, true, false, true, false, true, true, true, false, true],
       "EXPECTED_OUTPUT": "NO"
     },
-
+    {
+      "name": "Example 3 - NO",
+      "NUMPOINTS": 6,
+      "POINTS": [
+        [0, 0],
+        [2, 3],
+        [4, 1],
+        [6, 5],
+        [8, 2],
+        [10, 4]
+      ],
+      "PARAMETERS": {
+        "LENGTH1": 2.5,
+        "RADIUS1": 1.0,
+        "EPSILON": 0.2,
+        "AREA1": 4.0,
+        "Q_PTS": 3,
+        "QUADS": 2,
+        "N_PTS": 4,
+        "DIST": 2.0,
+        "K_PTS": 2,
+        "A_PTS": 1,
+        "B_PTS": 1,
+        "C_PTS": 1,
+        "D_PTS": 1,
+        "E_PTS": 1,
+        "F_PTS": 1,
+        "G_PTS": 3,
+        "LENGTH2": 0.7,
+        "RADIUS2": 2.5,
+        "AREA2": 1.5
+      },
+      "LCM": [
+        ["ANDD", "ORR", "NOTUSED", "ANDD", "ORR", "ANDD", "ANDD", "ORR", "NOTUSED", "ANDD", "ORR", "ANDD", "NOTUSED", "ANDD", "ORR"],
+        ["ORR", "ANDD", "ORR", "ORR", "ANDD", "NOTUSED", "ANDD", "ORR", "NOTUSED", "ANDD", "ANDD", "ANDD", "NOTUSED", "ANDD", "ANDD"],
+        ["NOTUSED", "ORR", "ANDD", "NOTUSED", "ANDD", "ANDD", "ORR", "NOTUSED", "ANDD", "ORR", "NOTUSED", "ANDD", "ORR", "ANDD", "NOTUSED"],
+        ["ANDD", "ORR", "NOTUSED", "ANDD", "ANDD", "ANDD", "NOTUSED", "ANDD", "ANDD", "NOTUSED", "NOTUSED", "ORR", "ANDD", "ANDD", "ANDD"],
+        ["ORR", "ANDD", "ANDD", "ANDD", "ANDD", "NOTUSED", "NOTUSED", "ANDD", "ANDD", "ANDD", "NOTUSED", "NOTUSED", "NOTUSED", "ANDD", "ANDD"],
+        ["ANDD", "NOTUSED", "ANDD", "ANDD", "NOTUSED", "ANDD", "ORR", "ANDD", "NOTUSED", "ORR", "ANDD", "NOTUSED", "ORR", "NOTUSED", "ORR"],
+        ["ANDD", "ANDD", "ORR", "NOTUSED", "NOTUSED", "ORR", "ANDD", "ORR", "ANDD", "NOTUSED", "ANDD", "ORR", "NOTUSED", "NOTUSED", "ANDD"],
+        ["ORR", "ORR", "NOTUSED", "ANDD", "ANDD", "ANDD", "ORR", "ANDD", "ANDD", "NOTUSED", "ORR", "ANDD", "ORR", "ANDD", "ORR"],
+        ["NOTUSED", "NOTUSED", "ANDD", "NOTUSED", "ANDD", "NOTUSED", "ORR", "ANDD", "NOTUSED", "ORR", "NOTUSED", "ANDD", "ANDD", "ANDD", "NOTUSED"],
+        ["ANDD", "ANDD", "ANDD", "NOTUSED", "ANDD", "ORR", "ANDD", "NOTUSED", "ORR", "ANDD", "NOTUSED", "ORR", "NOTUSED", "ANDD", "ANDD"],
+        ["ORR", "ORR", "NOTUSED", "NOTUSED", "NOTUSED", "ANDD", "ORR", "ORR", "NOTUSED", "NOTUSED", "ANDD", "ORR", "NOTUSED", "ORR", "ANDD"],
+        ["ANDD", "ANDD", "ANDD", "ORR", "NOTUSED", "NOTUSED", "ANDD", "ANDD", "ANDD", "ORR", "ORR", "ANDD", "ANDD", "NOTUSED", "ANDD"],
+        ["NOTUSED", "NOTUSED", "ORR", "ANDD", "NOTUSED", "NOTUSED", "ANDD", "ANDD", "ORR", "ANDD", "NOTUSED", "ANDD", "NOTUSED", "ORR", "ANDD"],
+        ["ANDD", "ANDD", "ANDD", "NOTUSED", "ANDD", "NOTUSED", "NOTUSED", "ANDD", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "ORR", "ANDD", "ORR"],
+        ["ORR", "ORR", "NOTUSED", "ANDD", "ANDD", "ORR", "ANDD", "ANDD", "ORR", "NOTUSED", "NOTUSED", "NOTUSED", "ANDD", "NOTUSED", "ANDD"]
+      ],
+      "PUV": [true, false, true, false, true, true, false, false, true, false, true, false, false, true, true],
+      "EXPECTED_OUTPUT": "NO"
+    },
+   {
+      "name": "Example 4 - YES",
+      "NUMPOINTS": 6,
+      "POINTS": [
+        [1, 1],
+        [3, 4],
+        [6, 2],
+        [8, 6],
+        [9, 3],
+        [11, 7]
+      ],
+      "PARAMETERS": {
+        "LENGTH1": 1.0,
+        "RADIUS1": 2.0,
+        "EPSILON": 0.2,
+        "AREA1": 1.0,
+        "Q_PTS": 2,
+        "QUADS": 1,
+        "N_PTS": 3,
+        "DIST": 0.5,
+        "K_PTS": 1,
+        "A_PTS": 1,
+        "B_PTS": 1,
+        "C_PTS": 1,
+        "D_PTS": 1,
+        "E_PTS": 1,
+        "F_PTS": 1,
+        "G_PTS": 3,
+        "LENGTH2": 0.3,
+        "RADIUS2": 3.0,
+        "AREA2": 2.0
+      },
+      "LCM": [
+        ["ANDD", "ORR", "NOTUSED", "ANDD", "NOTUSED", "ORR", "ANDD", "ANDD", "NOTUSED", "ANDD", "ANDD", "ORR", "NOTUSED", "ORR", "ORR"],
+        ["ORR", "ANDD", "ANDD", "ORR", "ANDD", "NOTUSED", "ANDD", "ORR", "NOTUSED", "ANDD", "ORR", "ANDD", "NOTUSED", "ANDD", "ORR"],
+        ["NOTUSED", "ORR", "ANDD", "NOTUSED", "ANDD", "ANDD", "ORR", "NOTUSED", "ANDD", "ORR", "NOTUSED", "ANDD", "ORR", "ANDD", "NOTUSED"],
+        ["ANDD", "ORR", "NOTUSED", "ANDD", "ANDD", "ANDD", "NOTUSED", "ANDD", "ANDD", "NOTUSED", "NOTUSED", "ORR", "ANDD", "ANDD", "ORR"],
+        ["NOTUSED", "ANDD", "ANDD", "ORR", "ANDD", "NOTUSED", "NOTUSED", "ORR", "ANDD", "ANDD", "NOTUSED", "NOTUSED", "NOTUSED", "ANDD", "ORR"],
+        ["ORR", "NOTUSED", "ANDD", "ANDD", "NOTUSED", "ANDD", "ORR", "ANDD", "NOTUSED", "ORR", "ANDD", "NOTUSED", "ORR", "NOTUSED", "ORR"],
+        ["ANDD", "ANDD", "ORR", "NOTUSED", "NOTUSED", "ORR", "ANDD", "ANDD", "ANDD", "NOTUSED", "ANDD", "ORR", "NOTUSED", "NOTUSED", "ANDD"],
+        ["ANDD", "ORR", "NOTUSED", "ANDD", "ANDD", "ANDD", "ORR", "ANDD", "ORR", "NOTUSED", "ORR", "ANDD", "ORR", "ANDD", "ORR"],
+        ["NOTUSED", "NOTUSED", "ANDD", "NOTUSED", "ANDD", "NOTUSED", "ORR", "ANDD", "NOTUSED", "ORR", "NOTUSED", "ANDD", "ANDD", "ANDD", "NOTUSED"],
+        ["ANDD", "ANDD", "ANDD", "NOTUSED", "ANDD", "ORR", "ANDD", "NOTUSED", "ORR", "ANDD", "NOTUSED", "ORR", "NOTUSED", "ANDD", "ANDD"],
+        ["ANDD", "ORR", "NOTUSED", "NOTUSED", "NOTUSED", "ANDD", "ORR", "ORR", "NOTUSED", "NOTUSED", "ANDD", "ORR", "NOTUSED", "ORR", "ANDD"],
+        ["ORR", "ANDD", "ANDD", "ORR", "NOTUSED", "NOTUSED", "ANDD", "ANDD", "ANDD", "ORR", "ORR", "ANDD", "ANDD", "NOTUSED", "ANDD"],
+        ["NOTUSED", "NOTUSED", "ORR", "ANDD", "NOTUSED", "NOTUSED", "ANDD", "ANDD", "ORR", "ANDD", "NOTUSED", "ANDD", "NOTUSED", "ORR", "ANDD"],
+        ["ORR", "ORR", "ORR", "NOTUSED", "ANDD", "NOTUSED", "NOTUSED", "ANDD", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "ORR", "ANDD", "ORR"],
+        ["ORR", "ORR", "NOTUSED", "ORR", "ORR", "ORR", "ANDD", "ORR", "ORR", "NOTUSED", "NOTUSED", "NOTUSED", "ANDD", "NOTUSED", "ANDD"]
+      ],
+      "PUV": [false, true, true, true, true, false, true, false, true, false, true, true, true, false, true],
+      "EXPECTED_OUTPUT": "YES"
+    }
   ]
 }
